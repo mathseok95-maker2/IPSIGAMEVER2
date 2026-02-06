@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>합격의 신 v11.0 : 마스터피스</title>
+    <title>합격의 신 v11.1 : 마스터피스</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@
         .university-card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1); }
         .hidden-section { display: none !important; }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #fff0f5; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 10px; }
@@ -67,6 +66,18 @@
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        
+        /* Score Change Badge */
+        .score-change {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .score-up { background-color: #d1fae5; color: #166534; }
+        .score-down { background-color: #fee2e2; color: #991b1b; }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col bg-cute-pattern transition-colors duration-500" id="main-body">
@@ -75,7 +86,7 @@
     <header class="bg-white/90 backdrop-blur-md text-pink-600 p-3 sticky top-0 z-50 border-b-4 border-pink-200 transition-colors duration-500" id="main-header">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
             <h1 class="text-2xl md:text-3xl font-game flex items-center tracking-wider cursor-pointer drop-shadow-sm hover:scale-105 transition" onclick="location.reload()">
-                <span class="text-3xl mr-2">👑</span>합격의 신 v11.0
+                <span class="text-3xl mr-2">👑</span>합격의 신 v11.1
             </h1>
             <div id="status-bar" class="hidden text-xs md:text-sm flex flex-wrap justify-center gap-3 transition-all duration-300 font-bold font-game">
                 <span class="bg-yellow-100 px-3 py-1 rounded-full border-2 border-yellow-300 text-yellow-700"><i class="fas fa-user mr-1"></i> <span id="display-name"></span></span>
@@ -106,8 +117,8 @@
                 <h1 class="text-4xl font-game text-pink-500 mb-1 tracking-tight drop-shadow-sm" id="game-title">합격의 신</h1>
                 <h2 class="text-2xl font-cute text-slate-500 mb-8" id="game-subtitle">나는 어디로 갈까? 🏫🏃‍♂️</h2>
 
-                <!-- Penalty Alert Box -->
-                <div id="penalty-alert" class="hidden mb-6 bg-red-100 text-red-600 p-4 rounded-2xl text-sm font-bold border-2 border-red-300 animate-pulse text-left font-game"></div>
+                <!-- Penalty Alert Box (Initially Hidden) -->
+                <div id="penalty-alert" class="hidden mb-6 p-4 rounded-2xl text-sm font-bold border-2 animate-pulse text-left font-game shadow-md"></div>
 
                 <form id="profile-form" class="space-y-4 text-left font-game">
                     <div class="grid grid-cols-2 gap-3">
@@ -122,8 +133,8 @@
                     </div>
                     
                     <div class="group">
-                        <label class="block text-sm text-pink-400 mb-1 ml-2">희망 학과 (면접용)</label>
-                        <input type="text" id="input-major" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="예: 경영학과, 컴퓨터공학과" required>
+                        <label class="block text-sm text-pink-400 mb-1 ml-2">희망 학과 (면접 반영)</label>
+                        <input type="text" id="input-major" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="예: 컴퓨터공학과, 경영학과" required>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3">
@@ -186,7 +197,8 @@
                 
                 <div id="quiz-feedback" class="hidden bg-slate-50 p-8 border-t-4 border-slate-100 text-center pop-in">
                     <div id="feedback-icon" class="text-6xl mb-4 inline-block bounce-slow"></div>
-                    <p id="feedback-text" class="font-bold text-2xl mb-6 text-slate-700 font-game"></p>
+                    <p id="feedback-text" class="font-bold text-2xl mb-2 text-slate-700 font-game"></p>
+                    <div id="feedback-detail" class="mb-6"></div> <!-- Visual Score Change -->
                     <button id="next-quiz-btn" class="bg-slate-800 text-white px-10 py-3 rounded-2xl hover:bg-black font-bold shadow-lg transition transform hover:scale-105 font-game text-xl">다음 문제 <i class="fas fa-arrow-right ml-1"></i></button>
                 </div>
             </div>
@@ -249,9 +261,9 @@
                     <span class="bg-green-100 text-green-700 px-4 py-1 rounded-lg text-sm font-bold mb-3 inline-block font-game">종합전형 면접</span>
                     <h3 class="text-3xl font-bold text-slate-800 font-game">💬 심층 면접 (3단계)</h3>
                     <div class="flex justify-center gap-2 mt-2">
-                         <div id="interview-step-1" class="w-3 h-3 rounded-full bg-slate-300"></div>
-                         <div id="interview-step-2" class="w-3 h-3 rounded-full bg-slate-300"></div>
-                         <div id="interview-step-3" class="w-3 h-3 rounded-full bg-slate-300"></div>
+                         <div id="interview-step-1" class="w-3 h-3 rounded-full bg-slate-300 transition"></div>
+                         <div id="interview-step-2" class="w-3 h-3 rounded-full bg-slate-300 transition"></div>
+                         <div id="interview-step-3" class="w-3 h-3 rounded-full bg-slate-300 transition"></div>
                     </div>
                 </div>
                 <div id="interview-content" class="bg-green-50 p-8 rounded-2xl border-2 border-green-100 font-game text-lg"></div>
@@ -459,7 +471,7 @@
 
     <script>
         // --- Global State ---
-        let activeRetryMode = null; // Store retry state globally
+        let activeRetryMode = null; 
 
         // --- Sound Effects (Web Audio API) ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -469,8 +481,8 @@
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-            oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioCtx.currentTime + 0.1); // C6
+            oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
+            oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioCtx.currentTime + 0.1); 
             gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
             oscillator.connect(gainNode);
@@ -544,14 +556,57 @@
         ];
 
         const quizPool = [
-            { subject: "국어", q: "'사흘'은 며칠인가?", options: ["3일", "4일", "5일", "30일"], a: 0 },
-            { subject: "수학", q: "sin²x + cos²x = ?", options: ["0", "1", "2", "-1"], a: 1 },
-            { subject: "상식", q: "대한민국의 수도는?", options: ["부산", "서울", "광주", "대구"], a: 1 },
-            { subject: "역사", q: "거북선을 만든 인물은?", options: ["장영실", "이순신", "세종대왕", "강감찬"], a: 1 },
-            { subject: "과학", q: "H2O는 무엇인가?", options: ["산소", "물", "수소", "이산화탄소"], a: 1 }
+            // 국어
+            { subject: "국어(문법)", q: "'맏형'의 올바른 발음은?", options: ["마텽", "마형", "맏형", "마뎡"], a: 0 },
+            { subject: "국어(문학)", q: "윤동주의 '서시'에 나오지 않는 단어는?", options: ["별", "바람", "잎새", "자동차"], a: 3 },
+            { subject: "국어(문법)", q: "사이시옷 규정에 맞는 표기는?", options: ["장맛비", "장마비", "장마빗", "비장마"], a: 0 },
+            { subject: "국어(고전)", q: "'관동별곡'의 작가는?", options: ["정철", "황진이", "이황", "이이"], a: 0 },
+            // 수학
+            { subject: "수학(대수)", q: "log₂8 + log₂2 의 값은?", options: ["3", "4", "5", "6"], a: 1 },
+            { subject: "수학(미분)", q: "f(x) = x³ 의 도함수 f'(x)는?", options: ["3x²", "x²", "3x", "2x"], a: 0 },
+            { subject: "수학(확률)", q: "서로 다른 주사위 2개를 던져 합이 12일 확률은?", options: ["1/36", "1/18", "1/6", "1/12"], a: 0 },
+            { subject: "수학(적분)", q: "∫ 2x dx 의 부정적분은? (C는 상수)", options: ["x²+C", "2x²+C", "x+C", "x³+C"], a: 0 },
+            // 영어
+            { subject: "영어(어휘)", q: "'Ubiquitous'의 뜻은?", options: ["어디에나 있는", "희귀한", "유일한", "사라진"], a: 0 },
+            { subject: "영어(어휘)", q: "'Benevolent'의 반대말은?", options: ["Malevolent", "Kind", "Generous", "Good"], a: 0 },
+            { subject: "영어(문법)", q: "I look forward to ____ you.", options: ["meeting", "meet", "met", "will meet"], a: 0 },
+            // 사회
+            { subject: "한국사", q: "임진왜란이 발발한 연도는?", options: ["1392", "1592", "1894", "1910"], a: 1 },
+            { subject: "윤리", q: "공리주의를 주장한 대표적 사상가는?", options: ["벤담", "칸트", "플라톤", "공자"], a: 0 },
+            { subject: "경제", q: "'보이지 않는 손'을 주장한 학자는?", options: ["애덤 스미스", "케인스", "마르크스", "리카도"], a: 0 },
+            // 과학
+            { subject: "물리", q: "F=ma는 뉴턴의 무슨 법칙인가?", options: ["가속도의 법칙", "관성의 법칙", "작용반작용", "만유인력"], a: 0 },
+            { subject: "화학", q: "가장 가벼운 원소는?", options: ["수소(H)", "헬륨(He)", "리튬(Li)", "산소(O)"], a: 0 },
+            { subject: "생명", q: "세포의 에너지 생산 공장은?", options: ["미토콘드리아", "리보솜", "골지체", "핵"], a: 0 },
+            { subject: "지구과학", q: "지구 자전의 방향은?", options: ["서에서 동", "동에서 서", "북에서 남", "남에서 북"], a: 0 },
+            // 킬러
+            { subject: "수학(킬러)", q: "sin(90도) + cos(0도) 의 값은?", options: ["2", "1", "0", "-1"], a: 0 },
+            { subject: "과학(킬러)", q: "상대성 이론을 발표한 과학자는?", options: ["아인슈타인", "뉴턴", "보어", "하이젠베르크"], a: 0 },
+            { subject: "상식(킬러)", q: "GDP의 뜻은?", options: ["국내총생산", "국민총소득", "물가상승률", "경제성장률"], a: 0 },
+            { subject: "역사(킬러)", q: "고려를 건국한 왕은?", options: ["왕건", "이성계", "궁예", "견훤"], a: 0 },
+            { subject: "문학(킬러)", q: "이육사의 시 '광야'의 주제는?", options: ["조국 광복 의지", "자연 친화", "이별의 슬픔", "인생무상"], a: 0 }
         ];
-        
-        // --- High Difficulty Essay Questions ---
+
+        // --- Major Keyword Logic ---
+        function getMajorSpecificQuestion(major) {
+            if (!major) return { q: "전공과 관련하여 본인이 노력한 점을 말해보세요.", options: ["책을 많이 읽었습니다.", "동아리 활동을 했습니다.", "성적 관리를 했습니다.", "딱히 없습니다."], a: 1 };
+            
+            const m = major.toLowerCase();
+            if (m.includes("컴퓨터") || m.includes("소프트웨어") || m.includes("ai")) {
+                return { q: "AI 윤리 문제에 대해 어떻게 생각하시나요?", options: ["개발을 멈춰야 합니다.", "규제와 발전이 병행되어야 합니다.", "무조건 발전시켜야 합니다.", "잘 모르겠습니다."], a: 1 };
+            } else if (m.includes("경영") || m.includes("경제")) {
+                return { q: "최근 ESG 경영이 화두인데, 가장 중요한 요소는?", options: ["환경(E)", "사회(S)", "지배구조(G)", "이윤 창출"], a: 0 };
+            } else if (m.includes("간호") || m.includes("의학") || m.includes("보건")) {
+                return { q: "환자의 자기결정권과 의사의 판단이 충돌할 때?", options: ["의사의 판단을 따른다.", "환자를 설득하되 결정을 존중한다.", "가족에게 묻는다.", "법대로 한다."], a: 1 };
+            } else if (m.includes("디자인") || m.includes("예술") || m.includes("미술")) {
+                return { q: "좋은 디자인이란 무엇이라고 생각합니까?", options: ["예쁜 것", "기능적인 것", "문제를 해결하는 것", "비싼 것"], a: 2 };
+            } else if (m.includes("체육") || m.includes("스포츠")) {
+                return { q: "스포츠맨십에서 가장 중요한 가치는?", options: ["승리", "공정성", "인기", "연봉"], a: 1 };
+            } else {
+                return { q: `[${major}] 전공을 선택한 구체적인 이유는?`, options: ["성적 맞춰서", "취업 잘 될 것 같아서", "관련 서적을 읽고 흥미를 느껴서", "부모님 권유"], a: 2 };
+            }
+        }
+
         const nonsulQuestions = [
             { type: "수리", q: "[심화] 미분가능한 함수 f(x)가 f'(x)=f(x)를 만족할 때 f(x)의 꼴은?", options: ["Ce^x", "Cx^2", "Clnx", "sin(x)"], a: 0 },
             { type: "인문", q: "[심화] '죄수의 딜레마'에서 두 죄수가 모두 자백하는 현상은?", options: ["파레토 최적", "내쉬 균형", "공리주의", "기회비용"], a: 1 },
@@ -592,6 +647,16 @@
             if(susiBadge) susiBadge.innerText = susiCart.length;
             const jeongsiBadge = document.getElementById('jeongsi-badge');
             if(jeongsiBadge) jeongsiBadge.innerText = jeongsiCart.length;
+
+            const badge = document.getElementById('combo-badge');
+            if(badge) {
+                 if(consecutiveCorrect > 1) {
+                    badge.classList.remove('hidden');
+                    badge.innerText = `🔥 ${consecutiveCorrect} COMBO!`;
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
         }
 
         function switchScene(id) {
@@ -645,8 +710,15 @@
                 player.gpa = parseFloat(document.getElementById('input-gpa').value);
                 player.sat = parseInt(document.getElementById('input-sat').value);
 
-                if(activeRetryMode === 'jaesu') player.gpa = Math.min(9.0, player.gpa + 0.5);
-                else if(activeRetryMode === 'gunsu') player.gpa = Math.min(9.0, player.gpa + 0.7);
+                // PENALTY APPLICATION FIX
+                if(activeRetryMode === 'jaesu') {
+                    player.gpa = Math.min(9.0, player.gpa + 0.5);
+                    console.log("Jaesu Penalty Applied");
+                } else if(activeRetryMode === 'gunsu') {
+                    player.gpa = Math.min(9.0, player.gpa + 0.7);
+                    maxRounds = 10;
+                    console.log("Gunsu Penalty Applied");
+                }
 
                 document.getElementById('status-bar').classList.remove('hidden');
                 document.getElementById('status-bar').classList.add('flex');
@@ -673,7 +745,7 @@
             q.options.forEach((o, i) => {
                 const btn = document.createElement('button');
                 btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-500 hover:bg-indigo-50 font-bold text-slate-600 transition active:scale-95";
-                btn.innerHTML = `${i+1}. ${o}`;
+                btn.innerHTML = `<span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded mr-2 text-xs">${i+1}</span> ${o}`;
                 btn.onclick = () => checkAnswer(i, q.a);
                 opts.appendChild(btn);
             });
@@ -682,6 +754,8 @@
             const fb = document.getElementById('quiz-feedback');
             const icon = document.getElementById('feedback-icon');
             const text = document.getElementById('feedback-text');
+            const detail = document.getElementById('feedback-detail');
+            
             if(fb) fb.classList.remove('hidden');
             const opts = document.getElementById('quiz-options');
             if(opts) opts.querySelectorAll('button').forEach(b=>b.disabled=true);
@@ -693,13 +767,15 @@
                 player.gpa = Math.max(1.0, player.gpa - gpaBonus);
                 player.sat = Math.min(100, player.sat + satBonus);
                 if(icon) icon.innerHTML = "🎉";
-                if(text) text.innerHTML = "정답! 성적 상승!";
+                if(text) text.innerHTML = "정답입니다!";
+                if(detail) detail.innerHTML = `<span class="score-change score-up">내신 -${gpaBonus.toFixed(2)} ▼</span> <span class="score-change score-up">수능 +${satBonus} ▲</span>`;
             } else {
                 consecutiveCorrect = 0;
                 player.gpa = Math.min(9.0, player.gpa + 0.1);
                 player.sat = Math.max(0, player.sat - 2);
                 if(icon) icon.innerHTML = "😭";
-                if(text) text.innerHTML = "오답... 성적 하락";
+                if(text) text.innerHTML = "오답입니다...";
+                if(detail) detail.innerHTML = `<span class="score-change score-down">내신 +0.1 ▲</span> <span class="score-change score-down">수능 -2 ▼</span>`;
             }
             updateStatus();
         }
@@ -739,7 +815,6 @@
                 let badge = diff <= -0.3 ? "안정" : (diff <= 0.2 ? "적정" : "상향");
                 let badgeColor = diff <= -0.3 ? "bg-green-100 text-green-700" : (diff <= 0.2 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
 
-                // AI Recommendation Logic
                 let recommendTag = "";
                 if(diff <= 0.1) recommendTag = '<span class="ai-recommend ml-2">👍 AI추천</span>';
 
@@ -835,7 +910,7 @@
 
         window.startActualExams = function() {
             if(player.track === '예체능') setupPractical(); 
-            else if(susiCart.some(u=>u.type==='종합')) setupInterviewStage(0); // Start Interview Stage 1
+            else if(susiCart.some(u=>u.type==='종합')) setupInterviewStage(0); 
             else if(susiCart.some(u=>u.type==='논술')) setupEssay();
             else processSusiResults();
         }
@@ -846,7 +921,6 @@
             switchScene('scene-interview');
             const container = document.getElementById('interview-content');
             
-            // Visual Steps
             const steps = [1,2,3].map(n => `<div class="w-3 h-3 rounded-full ${n<=stage+1 ? 'bg-green-500':'bg-slate-300'}"></div>`).join('');
             document.querySelector('#scene-interview .flex.justify-center').innerHTML = steps;
 
@@ -859,9 +933,10 @@
             } else if (stage === 1) { // Applied
                 typeLabel = "상황 대처";
                 q = { q: "팀 프로젝트 중 무임승차하는 동료가 있다면?", options: ["이름을 뺍니다.", "교수님께 이릅니다.", "대화로 참여를 유도하고 역할을 분담합니다.", "제가 다 합니다."], a: 2 };
-            } else { // Major Specific
+            } else { // Major Specific (AI Generated Feel)
                 typeLabel = "전공 적합성";
-                q = { q: `[${player.major}] 전공과 관련하여 본인이 읽은 책이나 활동을 소개해보세요.`, options: ["교과서만 봤습니다.", "관련된 심화 서적을 읽고 보고서를 작성했습니다.", "유튜브 영상을 많이 봤습니다.", "딱히 없습니다."], a: 1 };
+                const majorQ = getMajorSpecificQuestion(player.major);
+                q = majorQ;
             }
 
             if(container) {
@@ -879,7 +954,6 @@
             if(interviewStage < 2) {
                 setupInterviewStage(interviewStage + 1);
             } else {
-                // Done
                 if(susiCart.some(u=>u.type==='논술')) setupEssay();
                 else processSusiResults();
             }
@@ -1039,7 +1113,6 @@
                 let badge = diff >= 5 ? "안정" : (diff >= 0 ? "적정" : "상향");
                 let badgeColor = diff >= 5 ? "bg-green-100 text-green-700" : (diff >= 0 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
 
-                // AI Recommendation Logic
                 let recommendTag = "";
                 if(diff >= 0) recommendTag = '<span class="ai-recommend ml-2">👍 AI추천</span>';
 
