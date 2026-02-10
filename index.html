@@ -413,7 +413,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-100 text-slate-400 text-center p-6 text-xs font-bold font-game">
-        <p>Copyright ⓒ 2027 <span class="text-cyan-400">Yoo Won Seok</span>. All rights reserved.</p>
+        <p>Copyright ⓒ 2026 <span class="text-cyan-400">Yoo Won Seok</span>. All rights reserved.</p>
     </footer>
     
     <!-- Susi Type Modal -->
@@ -619,7 +619,23 @@
             { subject: "경제(킬러)", q: "수요의 가격 탄력성이 1보다 클 때, 가격을 인상하면 기업의 총수입은?", options: ["증가한다", "감소한다", "불변이다", "알 수 없다"], a: 1 }
         ];
 
-        // --- Major Specific Questions (Random Pool) ---
+        // --- Question Pools for Interview ---
+        const commonQuestions = {
+            'motivation': [
+                { q: "우리 대학(학과)에 지원하게 된 가장 솔직한 계기는?", options: ["성적에 맞춰서", "부모님의 권유", "해당 분야에 대한 학문적 호기심과 비전", "취업이 잘 될 것 같아서"], a: 2 },
+                { q: "자신을 한 단어로 표현한다면 무엇이고, 그 이유는?", options: ["스펀지(흡수력)", "나무늘보(게으름)", "독불장군(고집)", "바람(자유로움)"], a: 0 },
+                { q: "고교 3년 동안 가장 후회되는 순간이 있다면?", options: ["공부를 더 열심히 하지 않은 것", "친구들과 더 놀지 못한 것", "진로에 대해 깊이 고민하지 않은 것", "급식을 남긴 것"], a: 2 },
+                { q: "대학 입학 후 가장 하고 싶은 공부나 활동은?", options: ["미팅과 동아리 활동", "전공 심화 연구 및 프로젝트", "아르바이트", "게임"], a: 1 }
+            ],
+            'school_life': [
+                { q: "생활기록부에서 가장 의미 있게 생각하는 활동은?", options: ["교과 우수상 수상", "동아리에서 리더십을 발휘해 갈등을 해결한 경험", "친구들과 매점 간 경험", "야간자율학습 도주"], a: 1 },
+                { q: "리더십을 발휘해 공동체의 문제를 해결한 경험이 있는가?", options: ["없습니다. 전 팔로워입니다.", "축제 준비 중 의견 충돌을 조율하여 성공적으로 마친 경험", "조장이 되어 조원들에게 일을 다 시킨 경험", "나서기 싫어서 조용히 있었습니다."], a: 1 },
+                { q: "봉사활동 시간이 많은데, 무엇을 느꼈는가?", options: ["시간 채우느라 힘들었습니다.", "타인을 돕는 기쁨과 공동체 의식", "스펙 쌓기 용이었습니다.", "기억이 안 납니다."], a: 1 },
+                { q: "자신만의 스트레스 해소법이나 멘탈 관리 노하우는?", options: ["잠을 잡니다.", "친구들과 수다를 떱니다.", "긍정적인 마인드셋과 취미 생활", "화냅니다."], a: 2 },
+                { q: "존경하는 인물이나 삶의 롤모델이 있는가?", options: ["유명 연예인", "부모님", "자신의 분야에서 혁신을 이룬 인물", "돈 많은 사람"], a: 2 }
+            ]
+        };
+
         const majorQuestions = {
             '의학': [
                 { q: "[의료윤리] 치료 가능성이 희박한 말기 환자의 연명 치료 중단에 대한 본인의 견해는?", options: ["생명은 존엄하므로 끝까지 치료해야 한다.", "환자의 고통과 존엄사를 고려해 중단할 수 있다.", "경제적 비용을 최우선으로 고려해야 한다.", "가족의 결정에 무조건 따라야 한다."], a: 1 },
@@ -1083,12 +1099,16 @@
             let q;
             let typeLabel = "";
             
-            if(stage === 0) { // Basic
-                typeLabel = "1. 지원 동기";
-                q = { q: `${player.major}에 지원하게 된 솔직한 동기는 무엇인가요?`, options: ["성적에 맞춰서 왔습니다.", "부모님의 권유입니다.", "해당 분야에 대한 학문적 호기심과 비전 때문입니다.", "취업이 잘 될 것 같아서입니다."], a: 2 };
-            } else if (stage === 1) { // School Life
-                typeLabel = "2. 학교 생활";
-                q = { q: "생기부에 기록된 활동 중 가장 의미 있었던 것은?", options: ["동아리 활동에서 리더십을 발휘한 경험", "독서 활동", "딱히 없습니다", "친구들과 놀았던 경험"], a: 0 };
+            if(stage === 0) { // Random Common Question 1 (Motivation/Intro)
+                typeLabel = "1. 가치관 및 자기소개";
+                const pool = commonQuestions['motivation'];
+                const randIndex = Math.floor(Math.random() * pool.length);
+                q = pool[randIndex];
+            } else if (stage === 1) { // Random Common Question 2 (School Life)
+                typeLabel = "2. 학교 생활 및 기록부";
+                const pool = commonQuestions['school_life'];
+                const randIndex = Math.floor(Math.random() * pool.length);
+                q = pool[randIndex];
             } else { // Major Specific (Random)
                 typeLabel = stage === 2 ? "3. 전공 적합성(기초)" : "4. 전공 적합성(심화)";
                 const trackKey = (player.track === '의학') ? '의학' : (player.track === '예체능' ? '예체능' : (player.track === '자연' ? '자연' : '인문'));
@@ -1232,6 +1252,10 @@
             if(list) list.innerHTML = '';
             passedUniversities = [];
             
+            // Explicitly hide both outcome messages initially to prevent ghosting
+            document.getElementById('susi-pass-msg').classList.add('hidden');
+            document.getElementById('susi-fail-msg').classList.add('hidden');
+            
             susiCart.forEach((u, i) => {
                 setTimeout(() => {
                     let passed = false;
@@ -1285,8 +1309,15 @@
 
                     if(i === susiCart.length-1) {
                         document.getElementById('susi-outcome-controls').classList.remove('hidden');
-                        if(passedUniversities.length > 0) document.getElementById('susi-pass-msg').classList.remove('hidden');
-                        else document.getElementById('susi-fail-msg').classList.remove('hidden');
+                        if(passedUniversities.length > 0) {
+                            // Passed Susi - Show Pass Msg ONLY
+                            document.getElementById('susi-pass-msg').classList.remove('hidden');
+                            document.getElementById('susi-fail-msg').classList.add('hidden'); // Ensure fail msg is hidden
+                        } else {
+                            // Failed Susi - Show Fail Msg ONLY
+                            document.getElementById('susi-fail-msg').classList.remove('hidden');
+                            document.getElementById('susi-pass-msg').classList.add('hidden'); // Ensure pass msg is hidden
+                        }
                     }
                 }, i*800);
             });
