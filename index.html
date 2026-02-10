@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대학 입시의 신 NEW 2.3</title>
+    <title>대학 입시의 신 : THE FINAL (2027 실전)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
@@ -16,7 +16,6 @@
         .slide-in { animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .pop-in { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .bounce-slow { animation: bounce 2s infinite; }
-        .pulse-soft { animation: pulse 2s infinite; }
         .shake { animation: shake 0.5s; }
         
         @keyframes slideIn { from { opacity: 0; transform: translateY(50px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -29,9 +28,9 @@
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fff0f5; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         .bg-cute-pattern {
             background-color: #fff0f3;
@@ -39,6 +38,13 @@
             background-size: 30px 30px;
             background-position: 0 0, 15px 15px;
         }
+        /* Medical Theme */
+        .bg-medical {
+            background-color: #f0fdfa; /* Teal-50 */
+            background-image: linear-gradient(#ccfbf1 1px, transparent 1px), linear-gradient(90deg, #ccfbf1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
         /* Army Theme */
         .bg-army {
             background-color: #556b2f;
@@ -47,7 +53,7 @@
             background-size: 20px 20px;
         }
         
-        .shadow-cute { box-shadow: 6px 6px 0px 0px rgba(251, 113, 133, 0.4); }
+        .shadow-cute { box-shadow: 6px 6px 0px 0px rgba(0,0,0, 0.1); }
         .btn-push:active { transform: translateY(4px); box-shadow: none !important; }
         
         /* Killer Question Style */
@@ -58,7 +64,7 @@
         .score-up { background-color: #d1fae5; color: #166534; }
         .score-down { background-color: #fee2e2; color: #991b1b; }
         
-        .ai-recommend { animation: pulse 2s infinite; background: linear-gradient(45deg, #ff6b6b, #f06595); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .ai-recommend { animation: pulse 2s infinite; background: linear-gradient(45deg, #6366f1, #8b5cf6); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
         /* Letter Style */
         .letter-paper {
@@ -69,15 +75,21 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             font-family: 'Gaegu', cursive;
         }
+
+        .filter-btn.active, .j-filter-btn.active {
+            background-color: #1e293b;
+            color: white;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col bg-cute-pattern transition-colors duration-500" id="main-body">
 
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md text-pink-600 p-3 sticky top-0 z-50 border-b-4 border-pink-200 transition-colors duration-500" id="main-header">
+    <header class="bg-white/90 backdrop-blur-md text-slate-800 p-3 sticky top-0 z-50 border-b-4 border-slate-200 transition-colors duration-500" id="main-header">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-            <h1 class="text-2xl md:text-3xl font-game flex items-center tracking-wider cursor-pointer drop-shadow-sm hover:scale-105 transition" onclick="resetGame('full')">
-                <span class="text-3xl mr-2">👑</span>대학 입시의 신 NEW 2.3
+            <h1 class="text-2xl md:text-3xl font-game flex items-center tracking-wider cursor-pointer drop-shadow-sm hover:scale-105 transition" onclick="window.resetGame('full')">
+                <span class="text-3xl mr-2">🎓</span>대학 입시의 신 : THE FINAL
             </h1>
             <div id="status-bar" class="hidden text-xs md:text-sm flex flex-wrap justify-center gap-3 transition-all duration-300 font-bold font-game">
                 <span class="bg-yellow-100 px-3 py-1 rounded-full border-2 border-yellow-300 text-yellow-700"><i class="fas fa-user mr-1"></i> <span id="display-name"></span></span>
@@ -93,20 +105,17 @@
         
         <!-- Scene 1: Intro -->
         <section id="scene-intro" class="max-w-lg w-full relative slide-in z-10 mt-6">
-            <div class="absolute -top-16 -left-10 text-7xl float" style="animation-delay: 0s; z-index: -1;">✨</div>
-            <div class="absolute top-10 -right-12 text-6xl float" style="animation-delay: 1s; z-index: -1;">🌈</div>
-
-            <div class="bg-white p-8 rounded-[3rem] border-4 border-pink-300 shadow-cute text-center relative overflow-hidden">
-                <div class="bg-gradient-to-r from-pink-200 to-purple-200 absolute top-0 left-0 w-full h-8"></div>
+            <div class="bg-white p-8 rounded-[3rem] border-4 border-slate-200 shadow-cute text-center relative overflow-hidden">
+                <div class="bg-gradient-to-r from-indigo-200 to-purple-200 absolute top-0 left-0 w-full h-8"></div>
                 
                 <div id="intro-badge" class="mt-6 mb-4 relative inline-block">
-                     <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto border-4 border-pink-200 shadow-inner">
-                        <i class="fas fa-university text-6xl text-pink-500 bounce-slow"></i>
+                     <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto border-4 border-slate-200 shadow-inner">
+                        <i class="fas fa-graduation-cap text-6xl text-indigo-600 bounce-slow"></i>
                     </div>
                 </div>
 
-                <h1 class="text-4xl font-game text-pink-500 mb-1 tracking-tight drop-shadow-sm" id="game-title">대학 입시의 신</h1>
-                <h2 class="text-2xl font-cute text-slate-500 mb-8" id="game-subtitle">NEW 2.3 : 고3 실전 완성 📚</h2>
+                <h1 class="text-4xl font-game text-slate-800 mb-1 tracking-tight drop-shadow-sm" id="game-title">대학 입시의 신</h1>
+                <h2 class="text-2xl font-cute text-slate-500 mb-8" id="game-subtitle">2027 대입 실전편 (Final) 📚</h2>
 
                 <!-- Penalty Alert Box -->
                 <div id="penalty-alert" class="hidden mb-6 p-4 rounded-2xl text-sm font-bold border-2 animate-pulse text-left font-game shadow-md bg-red-50 text-red-600 border-red-200"></div>
@@ -114,56 +123,54 @@
                 <form id="profile-form" class="space-y-4 text-left font-game">
                     <div class="grid grid-cols-2 gap-3">
                         <div class="group">
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">이름</label>
-                            <input type="text" id="input-name" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="김수험" required>
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">이름</label>
+                            <input type="text" id="input-name" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" placeholder="김수험" required>
                         </div>
                         <div class="group">
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">출신 고교</label>
-                            <input type="text" id="input-school" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="OO고" required>
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">출신 고교</label>
+                            <input type="text" id="input-school" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" placeholder="OO고" required>
                         </div>
-                    </div>
-                    
-                    <div class="group">
-                        <label class="block text-sm text-pink-400 mb-1 ml-2">희망 학과 (전공 질문 반영)</label>
-                        <input type="text" id="input-major" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="예: 컴퓨터공학, 경영학" required>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">성별</label>
-                            <select id="input-gender" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm">
-                                <option value="M">남성 👦</option>
-                                <option value="F">여성 👧</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">계열</label>
-                            <select id="input-track" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm">
+                         <div class="group">
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">계열 선택</label>
+                            <select id="input-track" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" onchange="toggleMajorInput()">
                                 <option value="인문">인문계열 📚</option>
                                 <option value="자연">자연계열 🔬</option>
+                                <option value="의학">의학계열 🩺</option>
                                 <option value="예체능">예체능 🎨</option>
                             </select>
                         </div>
+                        <div class="group">
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">희망 전공</label>
+                            <input type="text" id="input-major" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" placeholder="경영학과" required>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">내신 (1.0~9.0)</label>
-                            <input type="number" id="input-gpa" step="0.1" min="1.0" max="9.0" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="3.5" required>
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">내신 (1.0~9.0)</label>
+                            <input type="number" id="input-gpa" step="0.01" min="1.0" max="9.0" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" placeholder="1.00" required>
                         </div>
                         <div>
-                            <label class="block text-sm text-pink-400 mb-1 ml-2">모의고사 (%)</label>
-                            <input type="number" id="input-sat" min="0" max="100" class="w-full bg-slate-50 border-2 border-pink-200 p-3 rounded-2xl focus:border-pink-400 outline-none text-center text-lg shadow-sm" placeholder="85" required>
+                            <label class="block text-sm text-slate-400 mb-1 ml-2">모의고사 (%)</label>
+                            <input type="number" id="input-sat" min="0" max="100" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm" placeholder="99" required>
                         </div>
                     </div>
-                    <button type="submit" id="start-btn" class="w-full bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-black py-4 rounded-2xl shadow-[0_6px_0_rgb(219,39,119)] active:shadow-none active:translate-y-[6px] transition-all text-xl mt-4 flex justify-center items-center gap-2 btn-push">
+                    
+                    <div class="group mt-2">
+                        <label class="block text-sm text-slate-400 mb-1 ml-2">성별</label>
+                        <select id="input-gender" class="w-full bg-slate-50 border-2 border-slate-200 p-3 rounded-2xl focus:border-indigo-400 outline-none text-center text-lg shadow-sm">
+                            <option value="M">남성 👦</option>
+                            <option value="F">여성 👧</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="start-btn" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-black py-4 rounded-2xl shadow-[0_6px_0_#0f172a] active:shadow-none active:translate-y-[6px] transition-all text-xl mt-4 flex justify-center items-center gap-2 btn-push">
                         2027 대입 시작 🚀
                     </button>
                 </form>
-
-                <div class="mt-8 pt-4 border-t-2 border-dashed border-pink-100 text-xs text-pink-300 font-bold">
-                    Created by Yoo Won Seok
-                </div>
             </div>
         </section>
 
@@ -172,8 +179,8 @@
             <div class="bg-white rounded-[2rem] shadow-cute border-4 border-slate-800 overflow-hidden" id="quiz-container">
                 <div class="bg-slate-800 p-6 text-white flex justify-between items-center" id="quiz-header">
                     <div>
-                        <h3 class="font-bold text-2xl font-game text-yellow-300" id="quiz-title"><i class="fas fa-brain mr-2"></i>수능 실전 문제!</h3>
-                        <p class="text-sm font-cute text-slate-300">실제 기출 변형 문제입니다. 집중하세요!</p>
+                        <h3 class="font-bold text-2xl font-game text-yellow-300" id="quiz-title"><i class="fas fa-brain mr-2"></i>수능 실전 모의고사</h3>
+                        <p class="text-sm font-cute text-slate-300">평가원 기출 변형 (킬러 문항 포함)</p>
                     </div>
                     <span class="text-lg font-black bg-white/20 px-4 py-2 rounded-xl">Q <span id="current-round">1</span>/<span id="total-rounds">5</span></span>
                 </div>
@@ -189,7 +196,7 @@
                 <div id="quiz-feedback" class="hidden bg-slate-50 p-8 border-t-4 border-slate-100 text-center pop-in">
                     <div id="feedback-icon" class="text-6xl mb-4 inline-block bounce-slow"></div>
                     <p id="feedback-text" class="font-bold text-2xl mb-2 text-slate-700 font-game"></p>
-                    <div id="feedback-detail" class="mb-6 h-8"></div>
+                    <div id="feedback-detail" class="mb-6 h-8 text-lg font-bold"></div>
                     <button id="next-quiz-btn" class="bg-slate-800 text-white px-10 py-3 rounded-2xl hover:bg-black font-bold shadow-lg transition transform hover:scale-105 font-game text-xl">다음 문제 <i class="fas fa-arrow-right ml-1"></i></button>
                 </div>
             </div>
@@ -200,18 +207,20 @@
             <div class="text-center mb-8">
                 <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-black mb-2 inline-block font-game border-2 border-blue-200">STEP 1</span>
                 <h2 class="text-4xl font-black text-slate-800 font-game">수시 원서 접수</h2>
-                <p class="text-sm text-slate-500 mt-2 font-bold font-game">* <span class="text-blue-600 bg-blue-50 px-1 rounded">AI 추천</span> 마크를 확인하세요 (전형 다르면 중복 가능)</p>
+                <p class="text-sm text-slate-500 mt-2 font-bold font-game">* <span class="text-blue-600 bg-blue-50 px-1 rounded">AI 추천</span> 마크를 확인하세요 (6장 제한)</p>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-6 h-auto lg:h-[600px]">
                 <div class="lg:w-2/3 flex flex-col h-[500px] lg:h-full bg-white rounded-[2rem] shadow-lg p-6 border-4 border-slate-100">
-                    <div class="flex gap-2 mb-4 overflow-x-auto pb-2 flex-shrink-0 scrollbar-hide font-game">
+                    <div id="susi-filters" class="flex gap-2 mb-4 overflow-x-auto pb-2 flex-shrink-0 scrollbar-hide font-game">
                         <button class="filter-btn active bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition shadow-md" data-filter="all">전체</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="medical">의약학계열</button>
                         <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="sky">SKY</button>
-                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_top">인서울 상위</button>
-                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_mid">인서울/수도권</button>
-                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="jigeoguk">지거국</button>
-                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="metro_low">경기/충청(4~6등급)</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_top">인서울(상)</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_mid">인서울/수도권</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="metro">경기/인천</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="jigeoguk">지거국</button>
+                        <button class="filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="local">지방사립</button>
                     </div>
                     <div id="susi-uni-list" class="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto pr-2 pb-2"></div>
                 </div>
@@ -230,31 +239,33 @@
         <!-- Scene 4: Exam Intro -->
         <section id="scene-exam-intro" class="hidden-section max-w-lg mx-auto slide-in mt-10 w-full text-center">
             <div class="bg-white p-10 rounded-[3rem] shadow-cute border-4 border-slate-800 relative overflow-hidden">
-                <i class="fas fa-pencil-alt text-7xl text-yellow-400 mb-6 bounce-slow block drop-shadow-md"></i>
+                <i class="fas fa-file-contract text-7xl text-cyan-500 mb-6 bounce-slow block drop-shadow-md"></i>
                 <h2 class="text-4xl font-black text-slate-800 font-game mb-4">대학별 고사</h2>
-                <p class="text-slate-500 text-xl mb-8 font-cute">마지막 역전의 기회!<br>면접과 논술에서 실력을 보여주세요.</p>
-                <button onclick="startActualExams()" class="bg-indigo-600 text-white px-12 py-5 rounded-2xl font-black hover:bg-indigo-700 shadow-[0_6px_0_rgb(55,48,163)] active:shadow-none active:translate-y-[6px] transition text-2xl font-game">입장하기 🚪</button>
+                <p class="text-slate-500 text-xl mb-8 font-cute">마지막 역전의 기회!<br>심층 면접과 논술에서 실력을 보여주세요.</p>
+                <button onclick="startActualExams()" class="bg-slate-800 text-white px-12 py-5 rounded-2xl font-black hover:bg-black shadow-[0_6px_0_#334155] active:shadow-none active:translate-y-[6px] transition text-2xl font-game">입장하기 🚪</button>
             </div>
         </section>
 
-        <!-- Scene 4-1: Interview Game -->
+        <!-- Scene 4-1: Interview Game (Updated 4 Steps with Random) -->
         <section id="scene-interview" class="hidden-section max-w-2xl mx-auto slide-in mt-10 w-full">
             <div class="bg-white rounded-[2rem] shadow-xl p-8 border-4 border-green-200">
                 <div class="text-center mb-6">
-                    <span class="bg-green-100 text-green-700 px-4 py-1 rounded-lg text-sm font-bold mb-3 inline-block font-game">종합전형 면접</span>
-                    <h3 class="text-3xl font-bold text-slate-800 font-game">💬 전공 심화 면접</h3>
-                    <div class="flex justify-center gap-2 mt-2" id="interview-steps"></div>
+                    <span class="bg-green-100 text-green-700 px-4 py-1 rounded-lg text-sm font-bold mb-3 inline-block font-game">학생부 종합 면접</span>
+                    <h3 class="text-3xl font-bold text-slate-800 font-game">💬 심층 면접 (4단계)</h3>
+                    <div class="flex justify-center gap-2 mt-4" id="interview-steps"></div>
                 </div>
                 <div id="interview-content" class="bg-green-50 p-8 rounded-2xl border-2 border-green-100 font-game text-lg"></div>
             </div>
         </section>
 
-        <!-- Scene 4-2: Essay Game -->
-        <section id="scene-essay" class="hidden-section max-w-2xl mx-auto slide-in mt-10 w-full">
+        <!-- Scene 4-2: Essay Game (Updated Multi-Question) -->
+        <section id="scene-essay" class="hidden-section max-w-3xl mx-auto slide-in mt-10 w-full">
             <div class="bg-white rounded-[2rem] shadow-xl p-8 border-4 border-purple-200">
                 <div class="text-center mb-8">
                     <span class="bg-purple-100 text-purple-700 px-4 py-1 rounded-lg text-sm font-bold mb-3 inline-block font-game">논술전형</span>
-                    <h3 class="text-3xl font-bold text-slate-800 font-game">✍️ 논술 고사</h3>
+                    <h3 class="text-3xl font-bold text-slate-800 font-game">✍️ 심층 논술 고사</h3>
+                    <p class="text-slate-500 mt-2 font-cute">제시문을 읽고 물음에 답하시오</p>
+                    <div class="flex justify-center gap-2 mt-4" id="essay-steps"></div>
                 </div>
                 <div id="essay-content" class="bg-purple-50 p-8 rounded-2xl border-2 border-purple-100 font-game text-lg"></div>
             </div>
@@ -265,23 +276,9 @@
             <div class="bg-white rounded-[2rem] shadow-xl p-8 border-4 border-orange-200">
                 <div class="text-center mb-6">
                     <span class="bg-orange-100 text-orange-700 px-4 py-1 rounded-lg text-sm font-bold mb-3 inline-block font-game">예체능 실기</span>
-                    <h3 class="text-3xl font-bold text-slate-800 font-game">⚡ 순발력 & 리듬 테스트</h3>
-                    <p class="text-slate-500 mt-2 font-cute text-xl">1단계: 초록색 클릭 / 2단계: 리듬 맞추기</p>
+                    <h3 class="text-3xl font-bold text-slate-800 font-game">⚡ 순발력 테스트</h3>
                 </div>
-                
-                <div id="reaction-stage" class="block">
-                     <div id="reaction-area" class="reaction-box reaction-waiting h-64 rounded-3xl flex items-center justify-center text-white text-4xl font-black font-game shadow-inner transform active:scale-95 transition" onclick="handleReactionClick()">준비...</div>
-                </div>
-                
-                <div id="rhythm-stage" class="hidden">
-                    <div class="w-full bg-slate-200 h-8 rounded-full relative mb-8 overflow-hidden border-2 border-slate-300">
-                        <div class="absolute left-1/2 top-0 w-8 h-full bg-yellow-400 -ml-4 opacity-50 z-0"></div> <!-- Target -->
-                        <div id="rhythm-bar" class="absolute left-0 top-0 w-4 h-full bg-red-500 z-10"></div> <!-- Moving Bar -->
-                    </div>
-                    <button onclick="handleRhythmClick()" class="bg-orange-500 text-white px-10 py-4 rounded-2xl font-black font-game text-2xl shadow-lg active:scale-95 hover:bg-orange-600 transition">HIT! 🥁</button>
-                </div>
-
-                <div id="practical-result" class="mt-4 text-3xl font-bold text-slate-800 font-game h-10"></div>
+                <div id="reaction-area" class="reaction-box reaction-waiting h-64 rounded-3xl flex items-center justify-center text-white text-4xl font-black font-game shadow-inner transform active:scale-95 transition cursor-pointer" onclick="handleReactionClick()">준비...</div>
                 <button id="practical-next-btn" class="hidden mt-6 bg-slate-800 text-white px-8 py-3 rounded-xl hover:bg-black transition font-game text-xl">다음으로</button>
             </div>
         </section>
@@ -309,17 +306,19 @@
             <div class="text-center mb-8">
                 <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-black mb-2 inline-block font-game border-2 border-indigo-200">STEP 2</span>
                 <h2 class="text-3xl font-black text-slate-800 font-game">정시 원서 접수</h2>
-                <p class="text-slate-500 mt-2 font-bold font-game text-sm">가/나/다군 총 3장 지원 / <span class="text-indigo-500">AI 추천 참고</span></p>
+                <p class="text-slate-500 mt-2 font-bold font-game">가/나/다군 총 3장 지원</p>
             </div>
             <div class="flex flex-col lg:flex-row gap-6 h-auto lg:h-[600px]">
                 <div class="lg:w-2/3 flex flex-col h-[500px] lg:h-full bg-white rounded-[2rem] shadow-lg p-6 overflow-hidden border-4 border-slate-100">
-                    <div class="flex gap-2 mb-4 overflow-x-auto pb-2 flex-shrink-0 scrollbar-hide font-game">
-                        <button class="j-filter-btn active bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition shadow-md" data-filter="all">전체보기</button>
+                    <div id="jeongsi-filters" class="flex gap-2 mb-4 overflow-x-auto pb-2 flex-shrink-0 scrollbar-hide font-game">
+                        <button class="j-filter-btn active bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition shadow-md" data-filter="all">전체</button>
+                         <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="medical">의약학계열</button>
                         <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="sky">SKY</button>
-                        <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_top">인서울 상위</button>
+                        <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_top">인서울(상)</button>
                         <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="in_seoul_mid">인서울/수도권</button>
+                        <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="metro">경기/인천</button>
                         <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="jigeoguk">지거국</button>
-                        <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="metro_low">경기/충청권</button>
+                        <button class="j-filter-btn bg-white border-2 border-slate-200 text-slate-500 px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition" data-filter="local">지방사립</button>
                     </div>
                     <div id="jeongsi-uni-list" class="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto pr-2 pb-2 h-full"></div>
                 </div>
@@ -334,7 +333,7 @@
             </div>
         </section>
 
-        <!-- Scene 7: Jeongsi Result Announcement -->
+        <!-- Scene 7: Jeongsi Result -->
         <section id="scene-jeongsi-announce" class="hidden-section max-w-3xl mx-auto slide-in text-center mt-10 w-full">
             <div class="bg-white p-12 rounded-[2.5rem] shadow-2xl border-4 border-indigo-100">
                 <h2 class="text-4xl font-black text-slate-800 font-game mb-8">정시 합격자 발표</h2>
@@ -347,15 +346,14 @@
                     <div id="jeongsi-fail-options" class="hidden">
                         <p class="text-2xl font-bold text-slate-700 mb-6 font-game">모든 대학에 불합격했습니다..😭</p>
                         <div class="flex flex-col gap-3 justify-center max-w-md mx-auto font-game">
-                            <!-- RETRY BUTTONS -->
                             <button onclick="window.resetGame('jaesu')" class="bg-red-400 hover:bg-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-between text-lg">
-                                <span>🔥 재수하기</span> <span class="text-sm bg-black/20 px-2 py-1 rounded">내신 -0.5</span>
+                                <span>🔥 재수하기</span> <span class="text-sm bg-black/20 px-2 py-1 rounded">내신 -0.5 / 수능 +5점</span>
                             </button>
                             <button onclick="window.resetGame('gunsu')" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-between text-lg">
-                                <span>🪖 군수하기</span> <span class="text-sm bg-black/20 px-2 py-1 rounded">내신 -0.7 / 퀴즈 10개</span>
+                                <span>🪖 군수하기</span> <span class="text-sm bg-black/20 px-2 py-1 rounded">내신 -0.7 / 퀴즈 기회 2배</span>
                             </button>
                             <button onclick="window.showEncouragementLetter()" class="bg-slate-500 hover:bg-slate-600 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-center text-lg">
-                                💌 결과 승복하기 (편지 보기)
+                                💌 결과 승복하기
                             </button>
                         </div>
                     </div>
@@ -374,6 +372,7 @@
         <!-- Scene 8: Final Certificate -->
         <section id="scene-final" class="hidden-section max-w-3xl mx-auto slide-in text-center mt-10 w-full">
             <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl border-8 border-yellow-200 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-4 bg-yellow-400"></div>
                 <i class="fas fa-crown text-8xl text-yellow-400 mb-6 drop-shadow-md mt-6 block bounce-slow"></i>
                 <h2 class="text-5xl font-black text-slate-800 mb-2 font-game">최종 합격증</h2>
                 <div id="final-university-display" class="my-10 p-8 bg-slate-50 rounded-3xl border-2 border-slate-100 font-game"></div>
@@ -414,7 +413,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-100 text-slate-400 text-center p-6 text-xs font-bold font-game">
-        <p>Copyright ⓒ 2026 <span class="text-pink-400">Yoo Won Seok</span>. All rights reserved.</p>
+        <p>Copyright ⓒ 2027 <span class="text-cyan-400">Yoo Won Seok</span>. All rights reserved.</p>
     </footer>
     
     <!-- Susi Type Modal -->
@@ -437,14 +436,14 @@
                 <button class="type-select-btn w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-green-500 hover:bg-green-50 transition text-left group bg-white" data-type="종합">
                     <div>
                         <div class="font-bold text-slate-700 text-lg group-hover:text-green-600">학생부 종합</div>
-                        <div class="text-xs text-slate-400 mt-0.5">서류 + 면접</div>
+                        <div class="text-xs text-slate-400 mt-0.5">서류 + 심층면접(4단계)</div>
                     </div>
                     <i class="fas fa-user-tie text-slate-300 group-hover:text-green-500 text-2xl"></i>
                 </button>
                 <button class="type-select-btn w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-purple-500 hover:bg-purple-50 transition text-left group bg-white" data-type="논술">
                     <div>
                         <div class="font-bold text-slate-700 text-lg group-hover:text-purple-600">논술 전형</div>
-                        <div class="text-xs text-slate-400 mt-0.5">내신↓ + 논술</div>
+                        <div class="text-xs text-slate-400 mt-0.5">내신↓ + 논술(2문제)</div>
                     </div>
                     <i class="fas fa-pen-nib text-slate-300 group-hover:text-purple-500 text-2xl"></i>
                 </button>
@@ -456,96 +455,241 @@
     <script>
         // --- Global State ---
         let activeRetryMode = null; 
-
-        // --- Sound Effects (Web Audio API) ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
+        // --- Sound Effects ---
         function playSuccessSound() {
             if(audioCtx.state === 'suspended') audioCtx.resume();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
-            oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioCtx.currentTime + 0.1); 
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.5);
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
+            osc.frequency.exponentialRampToValueAtTime(1046.5, audioCtx.currentTime + 0.1); 
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
         }
-
         function playFailSound() {
             if(audioCtx.state === 'suspended') audioCtx.resume();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.type = 'sawtooth';
-            oscillator.frequency.setValueAtTime(200, audioCtx.currentTime); 
-            oscillator.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.3);
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime); 
+            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
         }
 
-        // --- University Data (Expanded) ---
+        // --- University Data (Massively Expanded for v2.8) ---
         const universities = [
-            { id: 1, name: "서울대학교", tier: "sky", cut_h: 1.15, cut_n: 1.20, jeongsi_cut: 99.0, chojeo: 96, gender:'all', logo: "fas fa-university", color: "text-blue-900" },
+             // 1. Medical (Ui-Dae) - Top Tier
+            { id: 101, name: "서울대 의예과", tier: "medical", cut_h: 1.05, cut_n: 1.05, jeongsi_cut: 99.7, chojeo: 99, gender:'all', logo: "fas fa-user-md", color: "text-slate-900" },
+            { id: 102, name: "연세대 의예과", tier: "medical", cut_h: 1.08, cut_n: 1.08, jeongsi_cut: 99.5, chojeo: 99, gender:'all', logo: "fas fa-hospital", color: "text-blue-800" },
+            { id: 103, name: "가톨릭대 의예과", tier: "medical", cut_h: 1.10, cut_n: 1.10, jeongsi_cut: 99.2, chojeo: 98, gender:'all', logo: "fas fa-cross", color: "text-blue-600" },
+            { id: 104, name: "성균관대 의예과", tier: "medical", cut_h: 1.10, cut_n: 1.10, jeongsi_cut: 99.2, chojeo: 98, gender:'all', logo: "fas fa-leaf", color: "text-green-700" },
+            { id: 105, name: "울산대 의예과", tier: "medical", cut_h: 1.12, cut_n: 1.12, jeongsi_cut: 99.0, chojeo: 97, gender:'all', logo: "fas fa-anchor", color: "text-cyan-700" },
+            { id: 106, name: "고려대 의예과", tier: "medical", cut_h: 1.15, cut_n: 1.15, jeongsi_cut: 99.0, chojeo: 98, gender:'all', logo: "fas fa-shield-cat", color: "text-red-800" },
+            
+            // Medical - Mid/Jigeoguk
+            { id: 110, name: "경희대 의예과", tier: "medical", cut_h: 1.20, cut_n: 1.20, jeongsi_cut: 98.5, chojeo: 97, gender:'all', logo: "fas fa-globe", color: "text-red-600" },
+            { id: 111, name: "한양대 의예과", tier: "medical", cut_h: 1.20, cut_n: 1.20, jeongsi_cut: 98.5, chojeo: 97, gender:'all', logo: "fas fa-lion", color: "text-blue-600" },
+            { id: 112, name: "아주대 의예과", tier: "medical", cut_h: 1.25, cut_n: 1.25, jeongsi_cut: 98.0, chojeo: 96, gender:'all', logo: "fas fa-user-md", color: "text-blue-800" },
+            { id: 113, name: "가천대 의예과", tier: "medical", cut_h: 1.25, cut_n: 1.25, jeongsi_cut: 98.0, chojeo: 96, gender:'all', logo: "fas fa-wind", color: "text-blue-500" },
+            { id: 114, name: "부산대 의예과", tier: "medical", cut_h: 1.30, cut_n: 1.30, jeongsi_cut: 97.8, chojeo: 96, gender:'all', logo: "fas fa-mountain", color: "text-blue-700" },
+            
+            // Medical - Private/Lower
+            { id: 120, name: "을지대 의예과", tier: "medical", cut_h: 1.40, cut_n: 1.40, jeongsi_cut: 97.0, chojeo: 95, gender:'all', logo: "fas fa-medkit", color: "text-green-600" },
+            { id: 121, name: "건양대 의예과", tier: "medical", cut_h: 1.45, cut_n: 1.45, jeongsi_cut: 96.8, chojeo: 95, gender:'all', logo: "fas fa-heartbeat", color: "text-green-500" },
+            { id: 122, name: "조선대 의예과", tier: "medical", cut_h: 1.50, cut_n: 1.50, jeongsi_cut: 96.5, chojeo: 95, gender:'all', logo: "fas fa-ship", color: "text-blue-500" },
+
+            // Dental (Chi-Dae)
+            { id: 130, name: "서울대 치의학", tier: "medical", cut_h: 1.20, cut_n: 1.20, jeongsi_cut: 98.0, chojeo: 97, gender:'all', logo: "fas fa-tooth", color: "text-slate-800" },
+            { id: 131, name: "연세대 치의예", tier: "medical", cut_h: 1.30, cut_n: 1.30, jeongsi_cut: 97.5, chojeo: 97, gender:'all', logo: "fas fa-tooth", color: "text-blue-700" },
+            { id: 132, name: "경희대 치의예", tier: "medical", cut_h: 1.40, cut_n: 1.40, jeongsi_cut: 97.0, chojeo: 96, gender:'all', logo: "fas fa-tooth", color: "text-red-600" },
+            { id: 133, name: "단국대(천) 치의예", tier: "medical", cut_h: 1.45, cut_n: 1.45, jeongsi_cut: 96.5, chojeo: 96, gender:'all', logo: "fas fa-tooth", color: "text-blue-600" },
+
+            // Korean Med (Han-Ui-Dae)
+            { id: 140, name: "경희대 한의예", tier: "medical", cut_h: 1.40, cut_n: 1.40, jeongsi_cut: 97.0, chojeo: 96, gender:'all', logo: "fas fa-mortar-pestle", color: "text-yellow-700" },
+            { id: 141, name: "가천대 한의예", tier: "medical", cut_h: 1.50, cut_n: 1.50, jeongsi_cut: 96.5, chojeo: 95, gender:'all', logo: "fas fa-mortar-pestle", color: "text-blue-500" },
+            { id: 142, name: "대구한의대", tier: "medical", cut_h: 1.60, cut_n: 1.60, jeongsi_cut: 95.5, chojeo: 95, gender:'all', logo: "fas fa-leaf", color: "text-green-600" },
+
+            // Pharmacy (Yak-Dae)
+            { id: 150, name: "서울대 약학", tier: "medical", cut_h: 1.35, cut_n: 1.35, jeongsi_cut: 96.5, chojeo: 95, gender:'all', logo: "fas fa-capsules", color: "text-slate-800" },
+            { id: 151, name: "중앙대 약학", tier: "medical", cut_h: 1.45, cut_n: 1.45, jeongsi_cut: 96.0, chojeo: 95, gender:'all', logo: "fas fa-capsules", color: "text-blue-600" },
+            { id: 152, name: "이화여대 약학", tier: "medical", cut_h: 1.60, cut_n: 1.60, jeongsi_cut: 95.0, chojeo: 94, gender:'F', logo: "fas fa-capsules", color: "text-green-700" },
+
+            // Vet (Su-Ui-Dae)
+            { id: 160, name: "서울대 수의예", tier: "medical", cut_h: 1.30, cut_n: 1.30, jeongsi_cut: 96.5, chojeo: 95, gender:'all', logo: "fas fa-dog", color: "text-slate-800" },
+            { id: 161, name: "건국대 수의예", tier: "medical", cut_h: 1.50, cut_n: 1.50, jeongsi_cut: 95.5, chojeo: 95, gender:'all', logo: "fas fa-dog", color: "text-green-600" },
+
+            // 2. SKY 
+            { id: 1, name: "서울대학교", tier: "sky", cut_h: 1.20, cut_n: 1.25, jeongsi_cut: 98.5, chojeo: 96, gender:'all', logo: "fas fa-university", color: "text-blue-900" },
             { id: 2, name: "연세대학교", tier: "sky", cut_h: 1.45, cut_n: 1.50, jeongsi_cut: 97.5, chojeo: 95, gender:'all', logo: "fas fa-eagle", color: "text-blue-700" },
             { id: 3, name: "고려대학교", tier: "sky", cut_h: 1.55, cut_n: 1.60, jeongsi_cut: 97.0, chojeo: 95, gender:'all', logo: "fas fa-shield-cat", color: "text-red-800" },
-            { id: 4, name: "서강대학교", tier: "in_seoul_top", cut_h: 1.65, cut_n: 1.70, jeongsi_cut: 94.5, chojeo: 92, gender:'all', logo: "fas fa-star", color: "text-red-600" },
-            { id: 5, name: "성균관대학교", tier: "in_seoul_top", cut_h: 1.70, cut_n: 1.75, jeongsi_cut: 95.0, chojeo: 92, gender:'all', logo: "fas fa-leaf", color: "text-green-700" },
-            { id: 6, name: "한양대학교", tier: "in_seoul_top", cut_h: 1.75, cut_n: 1.80, jeongsi_cut: 94.0, chojeo: 92, gender:'all', logo: "fas fa-lion", color: "text-blue-600" },
-            { id: 12, name: "건국대학교", tier: "in_seoul_mid", cut_h: 2.20, cut_n: 2.25, jeongsi_cut: 90.0, chojeo: 87, gender:'all', logo: "fas fa-horse-head", color: "text-green-600" },
-            { id: 13, name: "동국대학교", tier: "in_seoul_mid", cut_h: 2.30, cut_n: 2.35, jeongsi_cut: 89.0, chojeo: 86, gender:'all', logo: "fas fa-dharmachakra", color: "text-orange-600" },
-            { id: 30, name: "부산대학교", tier: "jigeoguk", cut_h: 3.0, cut_n: 3.1, jeongsi_cut: 83.0, chojeo: 82, gender:'all', logo: "fas fa-mountain", color: "text-blue-700" },
-            { id: 50, name: "한경국립대", tier: "metro_low", cut_h: 3.8, cut_n: 4.2, jeongsi_cut: 72.0, chojeo: 0, gender:'all', logo: "fas fa-leaf", color: "text-green-600" },
-            { id: 51, name: "수원대학교", tier: "metro_low", cut_h: 4.0, cut_n: 4.3, jeongsi_cut: 70.0, chojeo: 0, gender:'all', logo: "fas fa-bell", color: "text-yellow-600" },
-            { id: 57, name: "대진대학교", tier: "metro_low", cut_h: 4.8, cut_n: 5.2, jeongsi_cut: 60.0, chojeo: 0, gender:'all', logo: "fas fa-mountain", color: "text-blue-400" },
-            { id: 58, name: "협성대학교", tier: "metro_low", cut_h: 4.9, cut_n: 5.3, jeongsi_cut: 58.0, chojeo: 0, gender:'all', logo: "fas fa-hand-holding-heart", color: "text-pink-500" },
-            { id: 59, name: "백석대학교", tier: "metro_low", cut_h: 5.0, cut_n: 5.4, jeongsi_cut: 57.0, chojeo: 0, gender:'all', logo: "fas fa-book", color: "text-blue-600" },
-            { id: 60, name: "남서울대", tier: "metro_low", cut_h: 5.2, cut_n: 5.5, jeongsi_cut: 55.0, chojeo: 0, gender:'all', logo: "fas fa-star", color: "text-yellow-500" }
-            // ... (Includes all previous universities)
+            
+            // 3. In Seoul Top
+            { id: 4, name: "서강대학교", tier: "in_seoul_top", cut_h: 1.70, cut_n: 1.75, jeongsi_cut: 94.5, chojeo: 92, gender:'all', logo: "fas fa-star", color: "text-red-600" },
+            { id: 5, name: "성균관대학교", tier: "in_seoul_top", cut_h: 1.75, cut_n: 1.80, jeongsi_cut: 95.0, chojeo: 92, gender:'all', logo: "fas fa-leaf", color: "text-green-700" },
+            { id: 6, name: "한양대학교", tier: "in_seoul_top", cut_h: 1.80, cut_n: 1.85, jeongsi_cut: 94.0, chojeo: 92, gender:'all', logo: "fas fa-lion", color: "text-blue-600" },
+            { id: 7, name: "중앙대학교", tier: "in_seoul_top", cut_h: 1.90, cut_n: 1.95, jeongsi_cut: 93.0, chojeo: 90, gender:'all', logo: "fas fa-building-columns", color: "text-blue-500" },
+            { id: 8, name: "경희대학교", tier: "in_seoul_top", cut_h: 2.00, cut_n: 2.10, jeongsi_cut: 92.0, chojeo: 89, gender:'all', logo: "fas fa-globe", color: "text-red-500" },
+            { id: 9, name: "한국외국어대", tier: "in_seoul_top", cut_h: 2.20, cut_n: 2.40, jeongsi_cut: 91.0, chojeo: 88, gender:'all', logo: "fas fa-earth-asia", color: "text-cyan-700" },
+            { id: 10, name: "서울시립대", tier: "in_seoul_top", cut_h: 2.15, cut_n: 2.25, jeongsi_cut: 91.5, chojeo: 88, gender:'all', logo: "fas fa-city", color: "text-blue-900" },
+            { id: 11, name: "이화여자대", tier: "in_seoul_top", cut_h: 2.00, cut_n: 2.10, jeongsi_cut: 92.5, chojeo: 89, gender:'F', logo: "fas fa-flower", color: "text-green-800" },
+
+            // 4. In Seoul Mid / Major Jigeoguk
+            { id: 12, name: "건국대학교", tier: "in_seoul_mid", cut_h: 2.30, cut_n: 2.35, jeongsi_cut: 90.0, chojeo: 87, gender:'all', logo: "fas fa-horse-head", color: "text-green-600" },
+            { id: 13, name: "동국대학교", tier: "in_seoul_mid", cut_h: 2.40, cut_n: 2.45, jeongsi_cut: 89.0, chojeo: 86, gender:'all', logo: "fas fa-dharmachakra", color: "text-orange-600" },
+            { id: 14, name: "홍익대학교", tier: "in_seoul_mid", cut_h: 2.50, cut_n: 2.55, jeongsi_cut: 88.0, chojeo: 88, gender:'all', logo: "fas fa-palette", color: "text-blue-800" },
+            { id: 15, name: "숙명여자대", tier: "in_seoul_mid", cut_h: 2.45, cut_n: 2.50, jeongsi_cut: 88.5, chojeo: 86, gender:'F', logo: "fas fa-snowflake", color: "text-blue-400" },
+            { id: 16, name: "국민대학교", tier: "in_seoul_mid", cut_h: 2.60, cut_n: 2.70, jeongsi_cut: 86.0, chojeo: 84, gender:'all', logo: "fas fa-tree", color: "text-green-800" },
+            { id: 17, name: "숭실대학교", tier: "in_seoul_mid", cut_h: 2.65, cut_n: 2.75, jeongsi_cut: 86.5, chojeo: 84, gender:'all', logo: "fas fa-church", color: "text-blue-500" },
+            { id: 18, name: "세종대학교", tier: "in_seoul_mid", cut_h: 2.70, cut_n: 2.80, jeongsi_cut: 85.5, chojeo: 83, gender:'all', logo: "fas fa-chess-king", color: "text-red-700" },
+            { id: 19, name: "단국대학교", tier: "in_seoul_mid", cut_h: 2.80, cut_n: 2.90, jeongsi_cut: 84.0, chojeo: 82, gender:'all', logo: "fas fa-bear", color: "text-blue-900" },
+            { id: 20, name: "아주대학교", tier: "in_seoul_mid", cut_h: 2.85, cut_n: 2.95, jeongsi_cut: 83.5, chojeo: 81, gender:'all', logo: "fas fa-user-md", color: "text-blue-900" },
+            { id: 21, name: "인하대학교", tier: "in_seoul_mid", cut_h: 2.90, cut_n: 3.00, jeongsi_cut: 82.5, chojeo: 80, gender:'all', logo: "fas fa-plane", color: "text-blue-600" },
+            { id: 30, name: "부산대학교", tier: "jigeoguk", cut_h: 2.90, cut_n: 3.10, jeongsi_cut: 84.0, chojeo: 82, gender:'all', logo: "fas fa-mountain", color: "text-blue-700" },
+            { id: 31, name: "경북대학교", tier: "jigeoguk", cut_h: 3.00, cut_n: 3.20, jeongsi_cut: 83.0, chojeo: 81, gender:'all', logo: "fas fa-apple-alt", color: "text-red-700" },
+
+            // 5. Metro & Jigeoguk Mid
+            { id: 401, name: "광운대학교", tier: "metro", cut_h: 3.3, cut_n: 3.4, jeongsi_cut: 80.0, chojeo: 78, gender:'all', logo: "fas fa-lightbulb", color: "text-red-800" },
+            { id: 402, name: "명지대학교", tier: "metro", cut_h: 3.4, cut_n: 3.5, jeongsi_cut: 78.0, chojeo: 77, gender:'all', logo: "fas fa-tree", color: "text-blue-900" },
+            { id: 403, name: "상명대학교", tier: "metro", cut_h: 3.5, cut_n: 3.6, jeongsi_cut: 77.0, chojeo: 76, gender:'all', logo: "fas fa-deer", color: "text-blue-600" },
+            { id: 404, name: "가톨릭대", tier: "metro", cut_h: 3.6, cut_n: 3.7, jeongsi_cut: 76.0, chojeo: 75, gender:'all', logo: "fas fa-cross", color: "text-blue-500" },
+            { id: 405, name: "가천대학교", tier: "metro", cut_h: 3.5, cut_n: 3.5, jeongsi_cut: 79.0, chojeo: 78, gender:'all', logo: "fas fa-wind", color: "text-blue-400" },
+            { id: 32, name: "전남대학교", tier: "jigeoguk", cut_h: 3.7, cut_n: 3.9, jeongsi_cut: 75.0, chojeo: 74, gender:'all', logo: "fas fa-tree", color: "text-green-700" },
+            { id: 33, name: "충남대학교", tier: "jigeoguk", cut_h: 3.6, cut_n: 3.8, jeongsi_cut: 76.0, chojeo: 75, gender:'all', logo: "fas fa-horse", color: "text-blue-800" },
+            { id: 34, name: "충북대학교", tier: "jigeoguk", cut_h: 3.8, cut_n: 4.0, jeongsi_cut: 72.0, chojeo: 0, gender:'all', logo: "fas fa-book", color: "text-red-700" },
+            { id: 35, name: "전북대학교", tier: "jigeoguk", cut_h: 3.9, cut_n: 4.1, jeongsi_cut: 71.0, chojeo: 0, gender:'all', logo: "fas fa-landmark", color: "text-indigo-800" },
+            { id: 36, name: "강원대학교", tier: "jigeoguk", cut_h: 4.0, cut_n: 4.2, jeongsi_cut: 70.0, chojeo: 0, gender:'all', logo: "fas fa-mountain", color: "text-green-600" },
+
+            // 6. Local Private & Lower
+            { id: 501, name: "부경대학교", tier: "jigeoguk", cut_h: 4.3, cut_n: 4.5, jeongsi_cut: 68.0, chojeo: 0, gender:'all', logo: "fas fa-fish", color: "text-blue-600" },
+            { id: 502, name: "영남대학교", tier: "local", cut_h: 4.6, cut_n: 4.8, jeongsi_cut: 65.0, chojeo: 0, gender:'all', logo: "fas fa-book-open", color: "text-blue-700" },
+            { id: 503, name: "동아대학교", tier: "local", cut_h: 4.7, cut_n: 4.9, jeongsi_cut: 64.0, chojeo: 0, gender:'all', logo: "fas fa-university", color: "text-purple-700" },
+            { id: 504, name: "조선대학교", tier: "local", cut_h: 4.8, cut_n: 5.0, jeongsi_cut: 63.0, chojeo: 0, gender:'all', logo: "fas fa-ship", color: "text-blue-500" },
+            { id: 505, name: "계명대학교", tier: "local", cut_h: 4.9, cut_n: 5.1, jeongsi_cut: 62.0, chojeo: 0, gender:'all', logo: "fas fa-music", color: "text-blue-400" }
         ];
 
-        // --- Expanded Quiz Data (50+) ---
+        // --- UPGRADED Quiz Data (40+ Questions) ---
         const quizPool = [
-            { subject: "국어", q: "[고3] '자기 결정성 이론'에서 보상이나 처벌에 의해 유발되는 동기 유형은?", options: ["내재적 동기", "자기 외적 조절", "확인된 조절", "통합된 조절"], a: 1 },
-            { subject: "수학", q: "[고3] 8^(1/3) × 16^(1/2) 의 값은?", options: ["2", "4", "8", "16"], a: 2 },
-            { subject: "영어", q: "[고3] 'flourishing'의 문맥상 의미로 가장 적절한 것은?", options: ["declining", "prospering", "shrinking", "hidden"], a: 1 },
-            { subject: "사회", q: "[고3] 리카도의 비교 우위론 핵심 원리는?", options: ["절대 우위 특화", "기회비용 최소화 특화", "모든 재화 자급자족", "수입 금지"], a: 1 },
-            { subject: "과학", q: "[고3] 엘니뇨 시기 동태평양 적도 부근 해역의 특징은?", options: ["무역풍 강화", "용승 강화", "표층 수온 상승", "기압 상승"], a: 2 },
-            { subject: "한국사", q: "[고3] 부여의 12월 제천 행사 이름은?", options: ["동맹", "무천", "영고", "계림"], a: 2 },
-            { subject: "수학", q: "[고3] 함수 f(x)=x^3-3x^2+4 의 극솟값은?", options: ["0", "4", "-4", "2"], a: 0 },
-            { subject: "영어", q: "[고3] 빈칸 추론: Technology has changed the way we _____.", options: ["sleep", "interact", "eat", "breath"], a: 1 }
+            // Korean History
+            { subject: "한국사(근현대)", q: "박정희 정부 시기 3선 개헌을 반대하는 목소리가 커지던 중 발생한 사건은?", options: ["부마 민주 항쟁", "6.3 시위", "전태일 분신 사건", "3.1 민주 구국 선언"], a: 2 },
+            { subject: "한국사(현대)", q: "1980년 5월, 계엄군에 맞서 시민군이 조직되고 수습 대책 위원회가 활동했던 민주화 운동은?", options: ["4.19 혁명", "5.18 민주화 운동", "6월 민주 항쟁", "부마 항쟁"], a: 1 },
+            { subject: "한국사(고대)", q: "부여의 제천 행사인 영고는 언제 열렸는가?", options: ["1월", "5월", "10월", "12월"], a: 3 },
+            { subject: "한국사(조선)", q: "조선 후기 대동법의 실시 결과로 가장 적절한 것은?", options: ["공인이 등장하였다.", "지주 전호제가 강화되었다.", "결작이 부과되었다.", "직전법이 폐지되었다."], a: 0 },
+            { subject: "한국사(개항기)", q: "1894년 동학 농민 운동 당시 농민군이 제시한 폐정 개혁안에 포함되지 않은 것은?", options: ["노비 문서 소각", "토지 평균 분작", "청에 대한 조공 폐지", "탐관오리 처벌"], a: 2 },
+
+            // Math (High Difficulty)
+            { subject: "수학(기하)", q: "타원의 장축 길이가 10이고 두 초점 사이의 거리가 8일 때, 타원 위의 점 P에 대해 선분 FP + F'P의 값은?", options: ["8", "10", "12", "14"], a: 1 }, 
+            { subject: "수학(확통)", q: "어떤 시행에서 사건 A가 일어날 확률 P(A)=0.4, 조건부 확률 P(B|A)=0.5일 때 P(A∩B)의 값은?", options: ["0.2", "0.4", "0.5", "0.9"], a: 0 },
+            { subject: "수학(킬러)", q: "로그방정식 log₂(x-1) + log₂(x+2) = 2 의 해 x는?", options: ["2", "3", "4", "5"], a: 0 },
+            { subject: "수학II(미분)", q: "함수 f(x) = x³ - 3x² + k 가 서로 다른 세 실근을 갖도록 하는 정수 k의 개수는?", options: ["2", "3", "4", "5"], a: 1 },
+            { subject: "미적분(극한)", q: "lim(n→∞) (2n² + 3n) / (n² - 1) 의 값은?", options: ["1", "2", "3", "∞"], a: 1 },
+            { subject: "수학I(수열)", q: "첫째항이 1이고 공비가 2인 등비수열의 제10항은?", options: ["256", "512", "1024", "2048"], a: 1 },
+
+            // English (Logical Reading)
+            { subject: "영어(독해)", q: "문장의 논리적 순서 배열 문제: (A) James applied... (B) Committee was moved... (C) Daniel advocated... (D) Not long after...", options: ["A-C-D-B", "A-D-C-B", "A-B-C-D", "A-C-B-D"], a: 1 },
+            { subject: "영어(어휘)", q: "'Advocated for his brother'에서 advocated의 문맥적 의미는?", options: ["비판하다", "지지하다", "무시하다", "대신하다"], a: 1 },
+            { subject: "영어(빈칸)", q: "Scientific knowledge is ______; it is constantly revised based on new evidence.", options: ["absolute", "tentative", "subjective", "dogmatic"], a: 1 },
+            { subject: "영어(문법)", q: "밑줄 친 부분 중 어법상 틀린 것은? 'She was looking forward to *go* to the party.'", options: ["was", "looking", "forward", "go"], a: 3 },
+            { subject: "영어(함축)", q: "'Read between the lines'의 의미는?", options: ["큰 소리로 읽다", "숨겨진 의미를 파악하다", "줄을 서서 기다리다", "책을 많이 읽다"], a: 1 },
+
+            // Science (Integrated + Inquiry)
+            { subject: "통합과학", q: "엘니뇨 시기 동태평양 적도 부근 해역에서 나타나는 특징은?", options: ["용승 강화", "표층 수온 하강", "강수량 증가", "무역풍 강화"], a: 2 },
+            { subject: "화학I", q: "중화 반응에서 HCl과 NaOH가 완전히 반응했을 때 생성되는 물질은?", options: ["물과 염", "산소와 수소", "앙금과 기체", "이온 결합 화합물만"], a: 0 },
+            { subject: "물리학I", q: "등가속도 직선 운동을 하는 물체의 속도-시간 그래프에서 기울기가 의미하는 것은?", options: ["변위", "이동 거리", "가속도", "평균 속도"], a: 2 },
+            { subject: "생명과학I", q: "사람의 체세포 분열 중기에서 관찰할 수 있는 것은?", options: ["상동 염색체 접합", "2가 염색체", "염색 분체 분리", "적도판에 배열된 염색체"], a: 3 },
+            { subject: "지구과학I", q: "태풍의 눈에 대한 설명으로 옳은 것은?", options: ["상승 기류가 강하다.", "기압이 가장 높다.", "약한 하강 기류가 나타난다.", "풍속이 가장 강하다."], a: 2 },
+            { subject: "화학II(킬러)", q: "이상 기체 상태 방정식 PV=nRT에서 R은 무엇인가?", options: ["보일 상수", "기체 상수", "아보가드로 수", "플랑크 상수"], a: 1 },
+
+            // Social Studies (Integrated + Inquiry)
+            { subject: "통합사회", q: "비교 우위론에 따라 각국이 무역을 할 때 얻는 이익의 근거는?", options: ["기회비용의 차이", "절대 생산비의 우위", "노동 인구수", "천연 자원량"], a: 0 },
+            { subject: "생활과윤리", q: "롤스의 정의론에서 '무지의 베일'을 쓴 당사자들이 합의할 분배 원칙은?", options: ["공리주의 원칙", "최소 수혜자 최대 이익", "능력에 따른 분배", "절대적 평등"], a: 1 },
+            { subject: "사회문화", q: "사회 문제를 사회 구조적 모순에서 찾는 관점은?", options: ["기능론", "갈등론", "상징적 상호작용론", "교환 이론"], a: 1 },
+            { subject: "한국지리", q: "우리나라의 영해 설정 기준선 중 동해안에서 주로 적용되는 것은?", options: ["통상 기선", "직선 기선", "중간선", "접속 수역"], a: 0 },
+            { subject: "윤리와사상", q: "맹자가 주장한 인간의 본성은?", options: ["성선설", "성악설", "성무선악설", "성기호설"], a: 0 },
+            { subject: "경제(킬러)", q: "수요의 가격 탄력성이 1보다 클 때, 가격을 인상하면 기업의 총수입은?", options: ["증가한다", "감소한다", "불변이다", "알 수 없다"], a: 1 }
         ];
 
-        // --- Major Specific Questions ---
-        function getMajorSpecificQuestion(major) {
-            if (!major) return { q: "전공과 관련하여 본인이 노력한 점을 말해보세요.", options: ["책을 많이 읽었습니다.", "동아리 활동을 했습니다.", "성적 관리를 했습니다.", "딱히 없습니다."], a: 1 };
-            const m = major.toLowerCase();
-            if (m.includes("컴퓨터") || m.includes("소프트웨어") || m.includes("ai")) {
-                return { q: "AI 윤리 문제에 대해 어떻게 생각하시나요?", options: ["개발을 멈춰야 합니다.", "규제와 발전이 병행되어야 합니다.", "무조건 발전시켜야 합니다.", "잘 모르겠습니다."], a: 1 };
-            } else if (m.includes("경영") || m.includes("경제")) {
-                return { q: "최근 ESG 경영이 화두인데, 가장 중요한 요소는?", options: ["환경(E)", "사회(S)", "지배구조(G)", "이윤 창출"], a: 0 };
-            } else if (m.includes("간호") || m.includes("의학") || m.includes("보건")) {
-                return { q: "환자의 자기결정권과 의사의 판단이 충돌할 때?", options: ["의사의 판단을 따른다.", "환자를 설득하되 결정을 존중한다.", "가족에게 묻는다.", "법대로 한다."], a: 1 };
-            } else if (m.includes("디자인") || m.includes("예술") || m.includes("미술")) {
-                return { q: "좋은 디자인이란 무엇이라고 생각합니까?", options: ["예쁜 것", "기능적인 것", "문제를 해결하는 것", "비싼 것"], a: 2 };
-            } else if (m.includes("체육") || m.includes("스포츠")) {
-                return { q: "스포츠맨십에서 가장 중요한 가치는?", options: ["승리", "공정성", "인기", "연봉"], a: 1 };
-            } else {
-                return { q: `[${major}] 전공을 선택한 구체적인 이유는?`, options: ["성적 맞춰서", "취업 잘 될 것 같아서", "관련 서적을 읽고 흥미를 느껴서", "부모님 권유"], a: 2 };
-            }
-        }
+        // --- Major Specific Questions (Random Pool) ---
+        const majorQuestions = {
+            '의학': [
+                { q: "[의료윤리] 치료 가능성이 희박한 말기 환자의 연명 치료 중단에 대한 본인의 견해는?", options: ["생명은 존엄하므로 끝까지 치료해야 한다.", "환자의 고통과 존엄사를 고려해 중단할 수 있다.", "경제적 비용을 최우선으로 고려해야 한다.", "가족의 결정에 무조건 따라야 한다."], a: 1 },
+                { q: "[전공적합] 항생제 내성균(슈퍼박테리아)의 출현 원인과 해결 방안은?", options: ["바이러스 변이 / 백신 개발", "오남용에 의한 자연선택 / 적정 투여 및 신약 개발", "면역력 저하 / 영양 섭취", "환경 오염 / 정화조 설치"], a: 1 },
+                { q: "[시사] 의대 증원 이슈와 관련하여, 필수의료 인력 부족을 해결하기 위한 근본적인 대책은?", options: ["단순히 의사 수만 늘리면 해결된다.", "수가 체계 개선 및 기피과 지원 강화가 병행되어야 한다.", "의대 정원을 줄여야 한다.", "외국 의사를 수입해야 한다."], a: 1 },
+                { q: "[생명과학] CRISPR 유전자 가위 기술의 윤리적 쟁점은?", options: ["맞춤형 아기 탄생 우려 및 유전자 풀 다양성 감소", "식량 생산 증대", "암 치료 비용 감소", "실험실 오염"], a: 0 }
+            ],
+            '자연': [
+                { q: "[과학탐구] 기후 위기의 주원인인 온실효과를 일으키는 주된 기체는?", options: ["질소(N2)", "산소(O2)", "이산화탄소(CO2)", "수소(H2)"], a: 2 },
+                { q: "[공학윤리] 자율주행차 사고 시 책임 소재(트로이 딜레마)는 누구에게 있는가?", options: ["제조사(알고리즘 설계자)", "탑승자", "보행자", "법적 합의가 필요한 복합적 문제"], a: 3 },
+                { q: "[물리] 반도체의 원리인 '에너지 띠 이론'에서 도체와 부도체의 차이는?", options: ["띠틈(Band Gap)의 유무와 크기", "전자의 질량 차이", "원자핵의 크기", "중력의 영향"], a: 0 },
+                { q: "[화학] 2차 전지의 핵심 소재인 리튬이온 배터리의 원리는?", options: ["리튬 이온이 양극과 음극 사이를 이동하며 충방전", "리튬이 핵분열을 일으킴", "수소와 산소의 결합", "태양광을 전기로 변환"], a: 0 }
+            ],
+            '인문': [
+                { q: "[사회이슈] 저출산 고령화 사회에서 가장 시급한 정책적 대응은?", options: ["이민 정책 확대", "노인 복지 축소", "청년 세대 지원 및 사회 구조 개혁", "출산 강제"], a: 2 },
+                { q: "[경제] 인플레이션을 잡기 위한 중앙은행의 통화 정책은?", options: ["금리 인하", "금리 인상", "화폐 발행 확대", "세금 감면"], a: 1 },
+                { q: "[철학] 공리주의적 관점에서 '트롤리 딜레마'의 올바른 선택은?", options: ["다수를 살리기 위해 소수를 희생한다.", "어떤 경우에도 생명을 희생시킬 수 없다.", "운명에 맡긴다.", "동전을 던져 결정한다."], a: 0 },
+                { q: "[정치] 민주주의의 위기로 지적되는 '포퓰리즘'의 폐해는?", options: ["엘리트주의 타파", "대중의 인기에 영합하여 장기적 국익 훼손", "시민 참여 확대", "복지 축소"], a: 1 }
+            ],
+            '예체능': [
+                { q: "[예술관] 현대 미술에서 '난해함'이 갖는 가치는?", options: ["가치 없다", "관객에게 새로운 사유와 질문을 던지는 것", "그림 실력을 숨기기 위함", "비싸게 팔기 위함"], a: 1 },
+                { q: "[체육] 스포츠맨십의 핵심 가치는?", options: ["승리 지상주의", "공정한 경쟁과 상대 존중", "심판에 대한 항의", "화려한 세러머니"], a: 1 },
+                { q: "[음악] 클래식 음악이 현대 사회에서 갖는 의의는?", options: ["과거의 유물일 뿐이다.", "인간 감정의 깊이를 탐구하고 정서적 안정을 준다.", "부유층의 전유물이다.", "수면 유도용이다."], a: 1 },
+                { q: "[디자인] '형태는 기능을 따른다'는 명제의 의미는?", options: ["디자인에서 기능성이 심미성보다 우선되어야 한다.", "화려한 장식이 최고다.", "기능은 중요하지 않다.", "가격이 비싸야 한다."], a: 0 }
+            ]
+        };
 
-        const nonsulQuestions = [
-            { type: "수리", q: "[심화] 미분가능한 함수 f(x)가 f'(x)=f(x)를 만족할 때 f(x)의 꼴은?", options: ["Ce^x", "Cx^2", "Clnx", "sin(x)"], a: 0 },
-            { type: "인문", q: "[심화] '죄수의 딜레마'에서 두 죄수가 모두 자백하는 현상은?", options: ["파레토 최적", "내쉬 균형", "공리주의", "기회비용"], a: 1 },
-            { type: "사회", q: "[심화] 롤스의 정의론에서 '무지의 베일'이 보장하는 것은?", options: ["절차적 공정성", "결과의 평등", "최대 다수의 행복", "자유지상주의"], a: 0 }
-        ];
+        // --- Essay Topics (Multi-Question) ---
+        const essayTopics = {
+            '자연': [ // Includes Medical
+                { 
+                    title: "문제 1. 엔트로피와 에너지", 
+                    text: "열역학 제2법칙에 따르면 고립계의 엔트로피는 항상 증가한다. 이를 '에너지의 질' 관점에서 설명하고, 우주의 열적 죽음(Heat Death)이 의미하는 바를 서술하시오.", 
+                    options: ["에너지 총량 감소 / 우주 수축", "에너지 질 저하 / 평형 상태 도달(모든 활동 정지)", "에너지 질 향상 / 새로운 별 탄생", "엔트로피 감소 / 질서 회복"], 
+                    a: 1 
+                },
+                { 
+                    title: "문제 2. 불확정성과 결정론", 
+                    text: "하이젠베르크의 불확정성 원리는 미시 세계에서 위치와 운동량을 동시에 정확히 측정할 수 없음을 시사한다. 이것이 고전 역학적 결정론에 미치는 철학적 함의는?", 
+                    options: ["라플라스의 악마는 존재한다", "모든 미래는 예측 가능하다", "인과율의 붕괴 및 확률적 세계관 대두", "관측 장비의 한계일 뿐이다"], 
+                    a: 2 
+                },
+                {
+                    title: "문제 3. 베이즈 정리 (심화)",
+                    text: "어떤 희귀병의 유병률이 0.1%이다. 검사 정확도가 99%일 때, 양성 판정을 받은 사람이 실제로 병에 걸렸을 확률은 직관보다 낮다. 그 이유는?",
+                    options: ["검사가 잘못되어서", "실제 환자 수보다 위양성(False Positive)의 수가 상대적으로 많기 때문", "유병률이 너무 높아서", "계산 오류"],
+                    a: 1
+                }
+            ],
+            '인문': [
+                { 
+                    title: "문제 1. 정의란 무엇인가", 
+                    text: "존 롤스의 '무지의 베일' 상태에서 합의될 것으로 예상되는 '차등의 원칙'은 무엇을 정당화하는가?", 
+                    options: ["모든 결과의 절대적 평등", "능력에 따른 무제한적 보상", "최소 수혜자에게 최대 이익이 돌아가는 불평등", "자유 시장의 완전한 방임"], 
+                    a: 2 
+                },
+                { 
+                    title: "문제 2. 감시와 처벌", 
+                    text: "미셸 푸코가 언급한 '판옵티콘'의 원리가 현대 정보 사회에서 '디지털 판옵티콘'으로 확장될 때 발생하는 주된 문제는?", 
+                    options: ["범죄율 감소", "정보의 효율적 관리", "규율 내면화로 인한 주체성 상실 및 사생활 침해", "통신 속도 저하"], 
+                    a: 2 
+                },
+                {
+                    title: "문제 3. 악의 평범성",
+                    text: "한나 아렌트가 아이히만 재판을 통해 주창한 '악의 평범성'의 핵심 요지는?",
+                    options: ["악마는 태어날 때부터 정해져 있다", "생각 없음(사유의 불능)이 거대한 악을 낳는다", "명령 복종은 죄가 아니다", "유대인 학살은 불가피했다"],
+                    a: 1
+                }
+            ]
+        };
 
         // Game State
         let player = { name: "", school: "", gender: "M", track: "인문", major: "", gpa: 0, sat: 0 };
@@ -562,11 +706,32 @@
         let nonsulScore = 0;
         let practicalScore = 0; 
         let reactionTimer, reactionStartTime, reactionState = 'waiting';
-        let rhythmTimer, rhythmInterval;
         let interviewStage = 0;
-        let currentPenaltyMode = null; // 'jaesu', 'gunsu' or null
+        let currentEssayQ = 0;
+        let currentPenaltyMode = null;
+        let usedQuestions = [];
+        let criticalFailure = false; // 면접 망함 플래그
 
-        // --- Functions ---
+        // --- Core Functions ---
+        function toggleMajorInput() {
+            const track = document.getElementById('input-track').value;
+            const majorInput = document.getElementById('input-major');
+            const body = document.getElementById('main-body');
+            const title = document.getElementById('game-title');
+
+            if (track === '의학') {
+                majorInput.value = "의예과";
+                body.classList.remove('bg-cute-pattern');
+                body.classList.add('bg-medical');
+                title.classList.add('text-cyan-600');
+            } else {
+                majorInput.value = "";
+                body.classList.remove('bg-medical');
+                body.classList.add('bg-cute-pattern');
+                title.classList.remove('text-cyan-600');
+            }
+        }
+
         function updateStatus() {
             const els = {
                 name: document.getElementById('display-name'),
@@ -603,9 +768,7 @@
             }
         }
 
-        // --- Soft Reset for Retry (No Page Reload) ---
         window.resetGame = function(mode) {
-            // Reset State
             player = { name: "", school: "", gender: "M", track: "인문", major: "", gpa: 0, sat: 0 };
             currentQuizQueue = [];
             currentRound = 0;
@@ -615,51 +778,40 @@
             finalResults = []; 
             passedUniversities = [];
             jonghapScore = 0; nonsulScore = 0; practicalScore = 0;
+            usedQuestions = [];
+            criticalFailure = false;
             
-            // Set Mode
             currentPenaltyMode = mode;
             maxRounds = (mode === 'gunsu') ? 10 : 5;
 
-            // UI Reset
             const alertBox = document.getElementById('penalty-alert');
             const body = document.getElementById('main-body');
-            const header = document.getElementById('main-header');
-            const title = document.getElementById('game-title');
             
             if(mode === 'jaesu') {
                 if(alertBox) {
                     alertBox.classList.remove('hidden');
-                    alertBox.innerHTML = '⚠️ <b>재수생 모드 ON:</b> 내신 -0.5 페널티가 적용됩니다.';
+                    alertBox.innerHTML = '⚠️ <b>재수생 모드 ON:</b> 내신 0.5등급 감점 / 수능 +5점 보너스';
                     alertBox.className = "mb-6 p-4 rounded-2xl text-sm font-bold border-2 animate-pulse text-left font-game shadow-md bg-red-50 text-red-600 border-red-200";
                 }
-                if(body) { body.classList.remove('bg-army'); body.classList.add('bg-cute-pattern'); }
-                if(title) title.innerText = "2028 대학 입시의 신 (재수)";
             } else if(mode === 'gunsu') {
                 if(alertBox) {
                     alertBox.classList.remove('hidden');
-                    alertBox.innerHTML = '🪖 <b>군대스리가 모드 ON:</b> 내신 -0.7 / 퀴즈 10회 기회!';
+                    alertBox.innerHTML = '🪖 <b>군대스리가 모드 ON:</b> 내신 0.7등급 감점 / 퀴즈 기회 10회 (역전 찬스!)';
                     alertBox.className = "mb-6 p-4 rounded-2xl text-sm font-bold border-2 animate-pulse text-left font-game shadow-md bg-green-800 text-white border-green-900";
                 }
-                if(body) { body.classList.remove('bg-cute-pattern'); body.classList.add('bg-army'); }
-                if(header) { header.classList.remove('bg-white/90','text-pink-600'); header.classList.add('bg-slate-900/90','text-green-400'); }
-                if(title) title.innerText = "군대스리가 : 전역 후 대학";
+                if(body) { body.classList.remove('bg-cute-pattern', 'bg-medical'); body.classList.add('bg-army'); }
             } else {
-                 // Full reset to normal
                  if(alertBox) alertBox.classList.add('hidden');
-                 if(body) { body.classList.remove('bg-army'); body.classList.add('bg-cute-pattern'); }
-                 if(header) { header.classList.remove('bg-slate-900/90','text-green-400'); header.classList.add('bg-white/90','text-pink-600'); }
-                 if(title) title.innerText = "2027 대학 입시의 신";
+                 if(body) { body.classList.remove('bg-army', 'bg-medical'); body.classList.add('bg-cute-pattern'); }
                  currentPenaltyMode = null;
                  maxRounds = 5;
             }
 
-            // Go to Intro
             switchScene('scene-intro');
-            // Clear inputs
             document.querySelectorAll('#profile-form input').forEach(i => i.value = '');
         }
 
-        // Start Form
+        // Form Submit
         const profileForm = document.getElementById('profile-form');
         if(profileForm) {
             profileForm.addEventListener('submit', (e) => {
@@ -673,9 +825,8 @@
                 let rawGpa = parseFloat(document.getElementById('input-gpa').value);
                 let rawSat = parseInt(document.getElementById('input-sat').value);
 
-                // Apply Penalties immediately
-                if(currentPenaltyMode === 'jaesu') rawGpa = Math.min(9.0, rawGpa + 0.5);
-                if(currentPenaltyMode === 'gunsu') rawGpa = Math.min(9.0, rawGpa + 0.7);
+                if(currentPenaltyMode === 'jaesu') { rawGpa = Math.min(9.0, rawGpa + 0.5); rawSat = Math.min(100, rawSat + 5); }
+                if(currentPenaltyMode === 'gunsu') { rawGpa = Math.min(9.0, rawGpa + 0.7); }
 
                 player.gpa = rawGpa;
                 player.sat = rawSat;
@@ -684,9 +835,13 @@
                 document.getElementById('status-bar').classList.add('flex');
                 updateStatus();
                 
-                // Quiz Setup
-                currentQuizQueue = [];
-                for(let i=0; i<maxRounds; i++) currentQuizQueue.push(quizPool[Math.floor(Math.random()*quizPool.length)]);
+                // Shuffle Quiz
+                let shuffledPool = [...quizPool];
+                for (let i = shuffledPool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledPool[i], shuffledPool[j]] = [shuffledPool[j], shuffledPool[i]];
+                }
+                currentQuizQueue = shuffledPool.slice(0, maxRounds);
                 
                 const tr = document.getElementById('total-rounds');
                 if(tr) tr.innerText = maxRounds;
@@ -696,14 +851,12 @@
             });
         }
 
-        // 2. Quiz Logic (Safe Version)
+        // Quiz Logic
         function loadQuiz() {
             if(currentRound >= maxRounds) { setTimeout(startSusi, 500); return; }
             
             const crEl = document.getElementById('current-round');
             if(crEl) crEl.innerText = currentRound+1;
-            const trEl = document.getElementById('total-rounds');
-            if(trEl) trEl.innerText = maxRounds;
             
             const fb = document.getElementById('quiz-feedback');
             if(fb) fb.classList.add('hidden');
@@ -711,17 +864,15 @@
             const container = document.getElementById('quiz-container');
             const title = document.getElementById('quiz-title');
             
-            // Killer Logic Check
             const q = currentQuizQueue[currentRound];
-            const gpaDecimal = player.gpa - Math.floor(player.gpa);
-            const satMod = player.sat % 10;
             
-            if ((gpaDecimal <= 0.2 || satMod >= 8) && q.subject.includes("킬러")) {
+            // Visual feedback for killer questions
+            if (q.subject.includes("킬러") || q.subject.includes("수학")) {
                  if(container) container.classList.add('killer-mode');
-                 if(title) { title.innerHTML = "🔥 승급 심사 (킬러)!"; title.classList.add('text-red-500'); }
+                 if(title) { title.innerHTML = "🔥 킬러 문항 (승급 심사)!"; title.classList.add('text-red-500'); }
             } else {
                  if(container) container.classList.remove('killer-mode');
-                 if(title) { title.innerHTML = "두뇌 풀가동!"; title.classList.remove('text-red-500'); }
+                 if(title) { title.innerHTML = "고3 실전 모의고사"; title.classList.remove('text-red-500'); }
             }
 
             const subEl = document.getElementById('quiz-subject');
@@ -754,38 +905,47 @@
             
             if(sel===ans) {
                 consecutiveCorrect++;
-                const gpaBonus = 0.15 + (consecutiveCorrect-1)*0.05;
-                const satBonus = 2 + (consecutiveCorrect-1)*1; // Reduced bonus
+                const gpaBonus = 0.1 + (consecutiveCorrect-1)*0.05;
+                const satBonus = 2;
                 player.gpa = Math.max(1.0, player.gpa - gpaBonus);
                 player.sat = Math.min(100, player.sat + satBonus);
                 
-                if(icon) icon.innerHTML = "🎉";
+                if(icon) icon.innerHTML = "⭕";
                 if(text) text.innerHTML = "정답입니다!";
                 if(detail) detail.innerHTML = `<span class="score-change score-up">내신 -${gpaBonus.toFixed(2)} ▼</span> <span class="score-change score-up">수능 +${satBonus} ▲</span>`;
+                playSuccessSound();
             } else {
                 consecutiveCorrect = 0;
                 player.gpa = Math.min(9.0, player.gpa + 0.1);
-                player.sat = Math.max(0, player.sat - 2);
+                player.sat = Math.max(0, player.sat - 3); // Penalty added
                 
-                if(icon) icon.innerHTML = "😭";
+                if(icon) icon.innerHTML = "❌";
                 if(text) text.innerHTML = "오답입니다...";
-                if(detail) detail.innerHTML = `<span class="score-change score-down">내신 +0.1 ▲</span> <span class="score-change score-down">수능 -2 ▼</span>`;
+                if(detail) detail.innerHTML = `<span class="score-change score-down">내신 +0.1 ▲</span> <span class="score-change score-down">수능 -3 ▼</span>`;
+                playFailSound();
             }
             updateStatus();
         }
         const nextQuiz = document.getElementById('next-quiz-btn');
         if(nextQuiz) nextQuiz.onclick = () => { currentRound++; loadQuiz(); };
 
-        // 3. Susi Logic
+        // Susi Logic
         function startSusi() {
             switchScene('scene-susi');
             updateStatus(); 
-            renderSusiList('all');
+            // Auto-select filter based on track
+            const defaultFilter = player.track === '의학' ? 'medical' : 'all';
+            
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active', 'bg-slate-800', 'text-white');
+                if(b.dataset.filter === defaultFilter) b.classList.add('active', 'bg-slate-800', 'text-white');
+            });
+            renderSusiList(defaultFilter);
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.onclick = (e) => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-slate-800','text-white'));
-                    e.target.classList.add('bg-slate-800','text-white');
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-slate-800','text-white'));
+                    e.target.classList.add('active', 'bg-slate-800','text-white');
                     renderSusiList(e.target.dataset.filter);
                 };
             });
@@ -795,24 +955,30 @@
             const list = document.getElementById('susi-uni-list');
             if(!list) return;
             list.innerHTML = '';
+            
             universities.forEach(u => {
                 if(player.gender === 'M' && u.gender === 'F') return;
-                if(filter !== 'all') {
-                    if(filter === 'metro_low' && u.tier !== 'metro_low') return;
-                    if(filter !== 'metro_low' && u.tier !== filter) return;
+                
+                // Filter Logic
+                if (filter === 'all') {
+                    // Show everything except Medical (unless player track is medical)
+                     if (u.tier === 'medical' && player.track !== '의학') return;
+                } else if (filter === 'medical') {
+                     if (u.tier !== 'medical') return;
+                } else {
+                     if (u.tier !== filter) return;
                 }
 
                 let targetCut = u.cut_h; 
-                if(player.track === '자연') targetCut = u.cut_n;
-                // Arts track simplified logic
+                if(player.track === '자연' || player.track === '의학') targetCut = u.cut_n;
                 if(player.track === '예체능') targetCut += 1.0;
 
                 const diff = player.gpa - targetCut;
-                let badge = diff <= -0.3 ? "안정" : (diff <= 0.2 ? "적정" : "상향");
-                let badgeColor = diff <= -0.3 ? "bg-green-100 text-green-700" : (diff <= 0.2 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
+                let badge = diff <= -0.2 ? "안정" : (diff <= 0.1 ? "적정" : "상향");
+                let badgeColor = diff <= -0.2 ? "bg-green-100 text-green-700" : (diff <= 0.1 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
 
                 let recommendTag = "";
-                if(diff >= 0) recommendTag = '<span class="ai-recommend ml-2">👍 AI추천</span>';
+                if(diff >= 0 && badge !== "상향") recommendTag = '<span class="ai-recommend ml-2">👍 AI추천</span>';
 
                 const d = document.createElement('div');
                 d.className = "university-card bg-white border border-slate-100 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition-all";
@@ -834,12 +1000,12 @@
             });
         }
 
-        // Modal & Cart Logic (Susi)
+        // Modal & Cart
         function openTypeModal(u) {
             if(susiCart.length >= 6) { alert("수시 원서는 최대 6장입니다."); return; }
             selectedUniForModal = u;
             document.getElementById('modal-uni-name').innerText = u.name;
-            const chojeoText = u.chojeo > 0 ? `수능최저: 백분위 ${u.chojeo}` : "수능최저 없음";
+            const chojeoText = u.chojeo > 0 ? `수능최저: 상위 ${100 - u.chojeo}% 이내` : "수능최저 없음";
             document.getElementById('modal-uni-chojeo').innerText = chojeoText;
             document.getElementById('type-modal').classList.remove('hidden');
         }
@@ -861,10 +1027,8 @@
 
         function updateSusiCart() {
             const list = document.getElementById('susi-cart');
-            const cnt = document.getElementById('susi-count');
             const btn = document.getElementById('btn-susi-submit');
             
-            if(cnt) cnt.innerText = susiCart.length;
             if(list) {
                 list.innerHTML = '';
                 susiCart.forEach((u, i) => {
@@ -906,28 +1070,37 @@
             else processSusiResults();
         }
 
-        // --- UPGRADED Interview Logic (3 Stages) ---
+        // --- UPGRADED Interview Logic (Random + 4 Stages) ---
         function setupInterviewStage(stage) {
             interviewStage = stage;
             switchScene('scene-interview');
             const container = document.getElementById('interview-content');
             
-            const steps = [1,2,3].map(n => `<div class="w-3 h-3 rounded-full ${n<=stage+1 ? 'bg-green-500':'bg-slate-300'}"></div>`).join('');
-            document.querySelector('#scene-interview .flex.justify-center').innerHTML = steps;
+            // 4 Dots
+            const steps = [0,1,2,3].map(n => `<div class="w-3 h-3 rounded-full ${n<=stage ? 'bg-green-500':'bg-slate-300'}"></div>`).join('');
+            document.getElementById('interview-steps').innerHTML = steps;
 
             let q;
             let typeLabel = "";
             
             if(stage === 0) { // Basic
-                typeLabel = "기본 인성";
-                q = { q: "우리 대학에 지원하게 된 가장 큰 동기는?", options: ["점수 맞춰서", "부모님 권유", "커리큘럼에 매료되어", "취업 잘 될 것 같아서"], a: 2 };
-            } else if (stage === 1) { // Applied
-                typeLabel = "상황 대처";
-                q = { q: "팀 프로젝트 중 무임승차하는 동료가 있다면?", options: ["이름을 뺍니다.", "교수님께 이릅니다.", "대화로 참여를 유도하고 역할을 분담합니다.", "제가 다 합니다."], a: 2 };
-            } else { // Major Specific (AI Generated Feel)
-                typeLabel = "전공 적합성";
-                const majorQ = getMajorSpecificQuestion(player.major);
-                q = majorQ;
+                typeLabel = "1. 지원 동기";
+                q = { q: `${player.major}에 지원하게 된 솔직한 동기는 무엇인가요?`, options: ["성적에 맞춰서 왔습니다.", "부모님의 권유입니다.", "해당 분야에 대한 학문적 호기심과 비전 때문입니다.", "취업이 잘 될 것 같아서입니다."], a: 2 };
+            } else if (stage === 1) { // School Life
+                typeLabel = "2. 학교 생활";
+                q = { q: "생기부에 기록된 활동 중 가장 의미 있었던 것은?", options: ["동아리 활동에서 리더십을 발휘한 경험", "독서 활동", "딱히 없습니다", "친구들과 놀았던 경험"], a: 0 };
+            } else { // Major Specific (Random)
+                typeLabel = stage === 2 ? "3. 전공 적합성(기초)" : "4. 전공 적합성(심화)";
+                const trackKey = (player.track === '의학') ? '의학' : (player.track === '예체능' ? '예체능' : (player.track === '자연' ? '자연' : '인문'));
+                
+                // Random selection without repetition
+                const pool = majorQuestions[trackKey];
+                let availablePool = pool.filter(q => !usedQuestions.includes(q.q));
+                if (availablePool.length === 0) availablePool = pool; // Reset if all used
+                
+                const randIndex = Math.floor(Math.random() * availablePool.length);
+                q = availablePool[randIndex];
+                usedQuestions.push(q.q);
             }
 
             if(container) {
@@ -939,112 +1112,117 @@
         }
 
         window.handleInterviewAnswer = function(selected, answer) {
-            if(selected === answer) jonghapScore += 0.3;
-            else jonghapScore -= 0.1;
+            if(selected === answer) {
+                jonghapScore += 0.25; 
+            } else {
+                jonghapScore -= 0.5; // Big Penalty for wrong answers
+                criticalFailure = true; // Mark as failed interview
+            }
 
-            if(interviewStage < 2) {
+            if(interviewStage < 3) {
                 setupInterviewStage(interviewStage + 1);
             } else {
-                // Done
                 if(susiCart.some(u=>u.type==='논술')) setupEssay();
                 else processSusiResults();
             }
         }
 
-        // Essay
+        // --- UPGRADED Essay Logic (Multi-Question) ---
         function setupEssay() {
             switchScene('scene-essay');
-            const q = nonsulQuestions[Math.floor(Math.random()*nonsulQuestions.length)];
+            currentEssayQ = 0;
+            loadEssayQuestion();
+        }
+
+        function loadEssayQuestion() {
             const container = document.getElementById('essay-content');
+            const trackKey = (player.track === '인문') ? '인문' : '자연'; // Med uses Natural
+            const questions = essayTopics[trackKey];
+
+            if (currentEssayQ >= questions.length) {
+                // End of Essay
+                processSusiResults();
+                return;
+            }
+
+            const q = questions[currentEssayQ];
+
+             // Dots
+            const steps = questions.map((_, idx) => `<div class="w-3 h-3 rounded-full ${idx<=currentEssayQ ? 'bg-purple-500':'bg-slate-300'}"></div>`).join('');
+            document.getElementById('essay-steps').innerHTML = steps;
+
             if(container) {
                 container.innerHTML = `
-                    <div class="mb-6"><span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-bold mb-2 inline-block">${q.type}</span><p class="font-bold text-xl text-slate-800 leading-relaxed">${q.q}</p></div>
-                    <div class="grid gap-3">${q.options.map((o,i)=>`<button onclick="nonsulScore=${i===q.a?1.0:-0.5};processSusiResults()" class="w-full text-left p-4 bg-white border-2 border-purple-100 rounded-xl hover:bg-purple-50 transition font-medium">${i+1}. ${o}</button>`).join('')}</div>
+                    <div class="mb-6">
+                        <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-bold mb-2 inline-block">${q.title}</span>
+                        <p class="font-bold text-lg text-slate-800 leading-relaxed">${q.text}</p>
+                    </div>
+                    <div class="grid gap-3">
+                        ${q.options.map((o,i)=>`<button onclick="handleEssayAnswer(${i}, ${q.a})" class="w-full text-left p-4 bg-white border-2 border-purple-100 rounded-xl hover:bg-purple-50 transition font-medium text-base">${i+1}. ${o}</button>`).join('')}
+                    </div>
                 `;
             }
         }
-        
-        // Practical (Enhanced Visibility & Rhythm)
+
+        window.handleEssayAnswer = function(sel, ans) {
+            if(sel === ans) nonsulScore += 0.5; // Accumulate score
+            else nonsulScore -= 0.2;
+            
+            currentEssayQ++;
+            loadEssayQuestion();
+        }
+
+        // Practical (Reaction)
         function setupPractical() {
             switchScene('scene-practical');
-            // Reset to stage 1
-            document.getElementById('reaction-stage').classList.remove('hidden');
-            document.getElementById('rhythm-stage').classList.add('hidden');
-            document.getElementById('practical-result').innerText = "";
-            document.getElementById('practical-next-btn').classList.add('hidden');
-            
             startReactionTest();
         }
-        
         function startReactionTest() {
             const box = document.getElementById('reaction-area');
+            const btn = document.getElementById('practical-next-btn');
+            if(btn) btn.classList.add('hidden');
+
             if(box) {
-                box.className = 'reaction-box reaction-waiting h-64 rounded-3xl flex items-center justify-center text-white text-4xl font-black font-game shadow-inner transform active:scale-95 transition';
-                box.innerText = "빨간색일 때 대기!";
-                box.style.backgroundColor = '#ef4444'; // Explicit Red
+                box.className = 'reaction-box reaction-waiting h-64 rounded-3xl flex items-center justify-center text-white text-3xl font-black font-game shadow-inner';
+                box.innerText = "빨간색일 때 클릭하면 실격!";
+                box.style.backgroundColor = "#ef4444"; // Red
             }
             reactionState = 'waiting';
             const delay = 2000 + Math.random() * 3000;
-            
-            if(reactionTimer) clearTimeout(reactionTimer);
-            
             reactionTimer = setTimeout(() => {
                 reactionState = 'ready';
                 if(box) {
-                    box.className = 'reaction-box reaction-ready h-64 rounded-3xl flex items-center justify-center text-white text-4xl font-black font-game shadow-inner';
+                    box.className = 'reaction-box reaction-ready h-64 rounded-3xl flex items-center justify-center text-white text-3xl font-black font-game shadow-inner';
+                    box.style.backgroundColor = "#22c55e"; // Green
                     box.innerText = "지금 클릭하세요!!!";
-                    box.style.backgroundColor = '#22c55e'; // Explicit Green
                 }
                 reactionStartTime = Date.now();
             }, delay);
         }
-        
         window.handleReactionClick = function() {
+            if (reactionState === 'finished') return;
+
+            const box = document.getElementById('reaction-area');
             if(reactionState === 'waiting') {
                 clearTimeout(reactionTimer);
-                alert("너무 빨랐습니다! 실격 처리될 수 있습니다.");
-                practicalScore -= 0.5;
-                startRhythmTest(); // Move to next
+                if(box) { box.innerText = "너무 빨랐습니다! (실격)"; box.style.backgroundColor = "#94a3b8"; }
+                practicalScore = -1.0;
+                showPracticalNext();
             } else if (reactionState === 'ready') {
                 const time = Date.now() - reactionStartTime;
-                document.getElementById('reaction-area').innerText = `${time}ms 성공!`;
-                if(time < 300) practicalScore += 1.0;
-                else if(time < 500) practicalScore += 0.5;
-                
-                setTimeout(startRhythmTest, 1000);
+                if(box) { 
+                    box.style.backgroundColor = "#3b82f6";
+                    if(time < 250) { box.innerText = `${time}ms Perfect!`; practicalScore = 1.0; }
+                    else if(time < 400) { box.innerText = `${time}ms Good`; practicalScore = 0.5; }
+                    else { box.innerText = `${time}ms Bad`; practicalScore = 0; }
+                }
+                showPracticalNext();
             }
+            reactionState = 'finished';
         }
-        
-        function startRhythmTest() {
-            document.getElementById('reaction-stage').classList.add('hidden');
-            document.getElementById('rhythm-stage').classList.remove('hidden');
-            
-            // Simple bar animation logic handled by CSS, we just check position or random for now to keep it simple
-            // For a better game feel, we'd need requestAnimationFrame, but let's simulate a timing check
-        }
-        
-        window.handleRhythmClick = function() {
-            // Simplified Rhythm Check: Random luck for now + reaction bonus
-            const luck = Math.random();
-            let msg = "";
-            if(luck > 0.7) { msg = "Perfect!!"; practicalScore += 0.5; }
-            else if(luck > 0.4) { msg = "Good!"; practicalScore += 0.3; }
-            else { msg = "Bad.."; practicalScore -= 0.1; }
-            
-            document.getElementById('practical-result').innerText = `리듬 판정: ${msg}`;
-            showPracticalNext();
-        }
-
         function showPracticalNext() {
-            const btn = document.getElementById('practical-next-btn');
-            if(btn) {
-                btn.classList.remove('hidden');
-                btn.onclick = () => {
-                    if(susiCart.some(u=>u.type==='종합')) setupInterviewStage(0);
-                    else if(susiCart.some(u=>u.type==='논술')) setupEssay();
-                    else processSusiResults();
-                };
-            }
+            document.getElementById('practical-next-btn').classList.remove('hidden');
+            document.getElementById('practical-next-btn').onclick = () => processSusiResults();
         }
 
         // Susi Processing
@@ -1057,22 +1235,33 @@
             susiCart.forEach((u, i) => {
                 setTimeout(() => {
                     let passed = false;
-                    let baseCut = (player.track === '자연') ? u.cut_n : u.cut_h;
+                    let baseCut = (player.track === '자연' || player.track === '의학') ? u.cut_n : u.cut_h;
                     if(player.track === '예체능') baseCut += 1.0; 
 
                     if (u.type === '교과') {
+                        // Susi Cutoff + Chojeo
                         if (player.sat < u.chojeo) passed = false; 
                         else {
-                            if (player.gpa <= baseCut + 0.1) passed = true; 
-                            else passed = Math.random() < 0.2; 
+                            if (player.gpa <= baseCut + 0.05) passed = true; 
+                            else passed = Math.random() < 0.1; // Luck
                         }
                     } else {
+                        // Jonghap/Nonsul
                         let finalScore = baseCut;
-                        if(u.type==='종합') finalScore += (0.3 + jonghapScore);
-                        if(u.type==='논술') finalScore += (1.0 + nonsulScore);
-                        if(player.track === '예체능') finalScore += practicalScore;
+                        
+                        // If critical failure in interview, massively penalize
+                        if (u.type === '종합' && criticalFailure) {
+                            finalScore -= 2.0; // Guaranteed Fail mostly
+                        } else if(u.type==='종합') {
+                            finalScore += (0.5 + jonghapScore); 
+                        }
+                        
+                        if(u.type==='논술') finalScore += (2.0 + nonsulScore); 
+                        
                         const diff = finalScore - player.gpa;
-                        let prob = (diff>0.5)?95:(diff>0)?70:(diff>-0.3)?30:5;
+                        let prob = (diff>0.5)?90:(diff>0)?60:(diff>-0.2)?20:1;
+                        if(u.tier === 'medical') prob *= 0.8; 
+                        
                         passed = Math.random()*100 < prob;
                     }
 
@@ -1090,6 +1279,7 @@
                         <div class="font-bold text-lg mb-2 font-game">${u.name}</div>
                         <div class="text-xl font-black ${passed?'text-green-600':'text-slate-300'} font-game">${passed?'합격':'불합격'}</div>
                         ${(u.type==='교과' && player.sat < u.chojeo) ? '<div class="text-xs text-red-400 mt-1 font-bold">최저 미달</div>' : ''}
+                        ${(u.type==='종합' && criticalFailure) ? '<div class="text-xs text-red-400 mt-1 font-bold">면접 과락</div>' : ''}
                     `;
                     if(list) list.appendChild(d);
 
@@ -1111,11 +1301,17 @@
         // Jeongsi Logic
         function startJeongsi() {
             switchScene('scene-jeongsi');
-            renderJeongsiList('all');
+            const defaultFilter = player.track === '의학' ? 'medical' : 'all';
+             document.querySelectorAll('.j-filter-btn').forEach(b => {
+                b.classList.remove('active', 'bg-slate-800', 'text-white');
+                if(b.dataset.filter === defaultFilter) b.classList.add('active', 'bg-slate-800', 'text-white');
+            });
+            renderJeongsiList(defaultFilter);
+            
             document.querySelectorAll('.j-filter-btn').forEach(btn => {
                 btn.onclick = (e) => {
-                    document.querySelectorAll('.j-filter-btn').forEach(b => b.classList.remove('bg-indigo-600','text-white'));
-                    e.target.classList.add('bg-indigo-600','text-white');
+                    document.querySelectorAll('.j-filter-btn').forEach(b => b.classList.remove('active', 'bg-slate-800','text-white'));
+                    e.target.classList.add('active', 'bg-slate-800','text-white');
                     renderJeongsiList(e.target.dataset.filter);
                 };
             });
@@ -1125,16 +1321,21 @@
             const list = document.getElementById('jeongsi-uni-list');
             if(!list) return;
             list.innerHTML = '';
+            
             universities.forEach(u => {
                 if(player.gender === 'M' && u.gender === 'F') return;
-                if(filter !== 'all') {
-                    if(filter === 'metro_low' && u.tier !== 'metro_low') return;
-                    if(filter !== 'metro_low' && u.tier !== filter) return;
+                
+                if (filter === 'all') {
+                     if (u.tier === 'medical' && player.track !== '의학') return;
+                } else if (filter === 'medical') {
+                     if (u.tier !== 'medical') return;
+                } else {
+                     if (u.tier !== filter) return;
                 }
 
                 const diff = player.sat - u.jeongsi_cut;
-                let badge = diff >= 5 ? "안정" : (diff >= 0 ? "적정" : "상향");
-                let badgeColor = diff >= 5 ? "bg-green-100 text-green-700" : (diff >= 0 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
+                let badge = diff >= 3 ? "안정" : (diff >= 0 ? "적정" : "상향");
+                let badgeColor = diff >= 3 ? "bg-green-100 text-green-700" : (diff >= 0 ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700");
 
                 let recommendTag = "";
                 if(diff >= 0) recommendTag = '<span class="ai-recommend ml-2">👍 AI추천</span>';
@@ -1186,6 +1387,7 @@
                 if(jeongsiCart.length > 0) {
                     btn.disabled = false;
                     btn.className = "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all font-game text-xl";
+                    btn.innerText = `정시 ${jeongsiCart.length}장 접수하기`;
                 } else {
                     btn.disabled = true;
                     btn.className = "w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl cursor-not-allowed font-game text-xl";
@@ -1203,8 +1405,10 @@
             jeongsiSubmit.onclick = () => {
                 jeongsiCart.forEach(u => {
                     const diff = player.sat - u.jeongsi_cut;
-                    let prob = 50 + diff*5;
-                    if(prob>95) prob=95; if(prob<5) prob=5;
+                    let prob = 50 + diff*5; // Sensitivity
+                    if(u.tier === 'medical') prob = 30 + diff*10; // Medical is stricter
+                    
+                    if(prob>95) prob=95; if(prob<1) prob=1;
                     const passed = Math.random()*100 < prob;
                     if(passed) passedUniversities.push({...u, method: '정시'});
                     finalResults.push({name:u.name, status:passed?'합격':'불합격', type: '정시'});
@@ -1295,7 +1499,6 @@
             playSuccessSound();
         }
 
-        // Letter Modal Logic
         window.showEncouragementLetter = function() {
             switchScene('scene-letter');
         };
