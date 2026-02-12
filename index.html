@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2900491622305328"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2900491622305328"
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,17 +84,22 @@
             transform: scale(1.05);
         }
     </style>
-    
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col bg-cute-pattern transition-colors duration-500" id="main-body">
 
     <!-- Header -->
     <header class="bg-white/90 backdrop-blur-md text-slate-800 p-3 sticky top-0 z-50 border-b-4 border-slate-200 transition-colors duration-500" id="main-header">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-            <h1 class="text-2xl md:text-3xl font-game flex items-center tracking-wider cursor-pointer drop-shadow-sm hover:scale-105 transition" onclick="window.resetGame('full')">
-                <span class="text-3xl mr-2">🎓</span>대학 입시의 신 : THE FINAL
-            </h1>
-            <div id="status-bar" class="hidden text-xs md:text-sm flex flex-wrap justify-center gap-3 transition-all duration-300 font-bold font-game">
+            <div class="flex items-center gap-3">
+                <h1 class="text-2xl md:text-3xl font-game flex items-center tracking-wider cursor-pointer drop-shadow-sm hover:scale-105 transition" onclick="window.resetGame('full')">
+                    <span class="text-3xl mr-2">🎓</span>대학 입시의 신 : THE FINAL
+                </h1>
+                <!-- 명예의 전당 탭 버튼 추가 -->
+                <button onclick="window.openHallOfFameModal()" class="bg-gradient-to-r from-yellow-300 to-yellow-500 text-slate-900 px-3 py-1.5 rounded-full font-bold font-game shadow-md hover:scale-105 transition flex items-center text-sm md:text-base">
+                    <i class="fas fa-globe mr-1.5"></i>온라인 랭킹
+                </button>
+            </div>
+            <div id="status-bar" class="hidden text-xs md:text-sm flex flex-wrap justify-center gap-3 transition-all duration-300 font-bold font-game mt-2 md:mt-0">
                 <span class="bg-yellow-100 px-3 py-1 rounded-full border-2 border-yellow-300 text-yellow-700"><i class="fas fa-user mr-1"></i> <span id="display-name"></span></span>
                 <span class="bg-blue-100 px-3 py-1 rounded-full border-2 border-blue-300 text-blue-700"><i class="fas fa-graduation-cap mr-1"></i> <span id="display-major"></span></span>
                 <span class="bg-green-100 px-3 py-1 rounded-full border-2 border-green-300 text-green-700"><i class="fas fa-book-open mr-1"></i> 내신: <span id="display-gpa">0.00</span></span>
@@ -249,7 +254,7 @@
             </div>
         </section>
 
-        <!-- Scene 4-1: Interview Game (Updated 4 Steps with Random) -->
+        <!-- Scene 4-1: Interview Game -->
         <section id="scene-interview" class="hidden-section max-w-2xl mx-auto slide-in mt-10 w-full">
             <div class="bg-white rounded-[2rem] shadow-xl p-8 border-4 border-green-200">
                 <div class="text-center mb-6">
@@ -261,7 +266,7 @@
             </div>
         </section>
 
-        <!-- Scene 4-2: Essay Game (Updated Multi-Question) -->
+        <!-- Scene 4-2: Essay Game -->
         <section id="scene-essay" class="hidden-section max-w-3xl mx-auto slide-in mt-10 w-full">
             <div class="bg-white rounded-[2rem] shadow-xl p-8 border-4 border-purple-200">
                 <div class="text-center mb-8">
@@ -294,11 +299,12 @@
                 <div id="susi-outcome-controls" class="hidden border-t-2 border-dashed border-slate-200 pt-10">
                     <div id="susi-pass-msg" class="hidden">
                         <p class="text-3xl font-bold text-green-600 mb-2 font-game animate-bounce">축하합니다! 합격!</p>
-                        <button id="go-to-final-choice-susi" class="bg-slate-800 hover:bg-black text-white font-black py-4 px-12 rounded-2xl shadow-xl font-game text-xl transition hover:scale-105">최종 등록하기 ✨</button>
+                        <!-- 정시 강제 금지 (수시 납치 구현) -->
+                        <button id="go-to-final-choice-susi" class="bg-slate-800 hover:bg-black text-white font-black py-4 px-12 rounded-2xl shadow-xl font-game text-xl transition hover:scale-105 mt-4">최종 등록하기 ✨</button>
                     </div>
                     <div id="susi-fail-msg" class="hidden">
                         <p class="text-2xl font-bold text-slate-500 mb-2 font-game">아쉽게도 불합격입니다 😭</p>
-                        <button id="go-to-jeongsi" class="bg-blue-500 hover:bg-blue-600 text-white font-black py-4 px-12 rounded-2xl shadow-xl font-game text-xl transition hover:scale-105">정시 도전하기 🔥</button>
+                        <button id="go-to-jeongsi" class="bg-blue-500 hover:bg-blue-600 text-white font-black py-4 px-12 rounded-2xl shadow-xl font-game text-xl transition hover:scale-105 mt-4">정시 도전하기 🔥</button>
                     </div>
                 </div>
             </div>
@@ -355,8 +361,8 @@
                             <button onclick="window.resetGame('gunsu')" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-between text-lg">
                                 <span>🪖 군수하기</span> <span class="text-sm bg-black/20 px-2 py-1 rounded">내신 -0.7 / 퀴즈 기회 2배</span>
                             </button>
-                            <button onclick="window.showEncouragementLetter()" class="bg-slate-500 hover:bg-slate-600 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-center text-lg">
-                                💌 결과 승복하기
+                            <button onclick="window.showEncouragementLetter(false)" class="bg-slate-500 hover:bg-slate-600 text-white px-8 py-4 rounded-2xl font-bold shadow-md transition flex items-center justify-center text-lg">
+                                💌 결과 승복하기 (편지 보기)
                             </button>
                         </div>
                     </div>
@@ -389,8 +395,22 @@
                         <div><span class="text-indigo-400 block text-xs mb-1">수능</span> <span class="font-bold text-purple-600 final-sat-display"></span>%</div>
                     </div>
                 </div>
+
+                <!-- 입시 전략 평가 영역 (추가) -->
+                <div class="bg-yellow-50 p-6 rounded-2xl text-left border border-yellow-200 shadow-inner font-game mt-4 relative overflow-hidden">
+                    <h3 class="font-bold text-yellow-800 mb-4 border-b border-yellow-200 pb-2 text-sm"><i class="fas fa-search-chart mr-2"></i>입시 전략 평가</h3>
+                    <div class="flex items-center gap-6 z-10 relative">
+                        <div id="eval-grade" class="text-6xl font-black text-red-500 drop-shadow-md w-24 text-center">S+</div>
+                        <div>
+                            <div id="eval-score" class="text-xl font-bold text-slate-800 mb-1">입시 스코어: 100점</div>
+                            <div id="eval-comment" class="text-sm text-slate-600 leading-relaxed">평가 중...</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-stamp absolute -right-2 -bottom-4 text-8xl text-yellow-200/60 transform -rotate-12 z-0"></i>
+                </div>
+                
                 <div class="mt-8">
-                     <button onclick="window.showEncouragementLetter()" class="bg-pink-400 hover:bg-pink-500 text-white px-8 py-3 rounded-xl font-game shadow-md text-lg mb-4 w-full">💌 선생님의 편지 읽기</button>
+                     <button onclick="window.showEncouragementLetter(true)" class="bg-pink-400 hover:bg-pink-500 text-white px-8 py-3 rounded-xl font-game shadow-md text-lg mb-4 w-full">💌 선생님의 편지 읽기</button>
                 </div>
                 <button onclick="location.reload()" class="bg-slate-800 text-white px-12 py-5 rounded-2xl hover:bg-black shadow-xl font-bold transition transform hover:scale-105 mb-4 group font-game text-xl">처음으로</button>
             </div>
@@ -398,17 +418,37 @@
 
         <!-- Scene 10: Letter Ending -->
         <section id="scene-letter" class="hidden-section max-w-2xl mx-auto slide-in mt-10 w-full text-center">
-            <div class="letter-paper p-10 rounded-[2.5rem] relative overflow-hidden text-left font-cute text-2xl text-slate-700 leading-relaxed shadow-2xl">
-                <div class="absolute top-0 left-0 w-full h-4 bg-yellow-200 opacity-50"></div>
-                <p class="mb-6 font-bold text-3xl text-indigo-600">사랑하는 수험생 여러분께,</p>
-                <p class="mb-4">긴 시간 묵묵히 달려오느라 정말 고생 많았습니다. 입시라는 큰 산을 넘은 네가 선생님은 참 대견하고 자랑스럽단다.</p>
-                <p class="mb-4">결과가 어떠하든 너라는 존재의 가치는 변하지 않으니, 이제는 무거운 짐을 내려놓고 마음껏 숨 쉬며 너만의 속도로 다음 계절을 맞이하길 바라.</p>
-                <p class="mb-8">네가 걸어갈 모든 길 위에 따뜻한 햇살과 응원이 가득하기를 바랄게.</p>
-                <p class="text-right font-bold text-pink-500 text-xl">- 유원석 T 드림 -</p>
+            <div id="letter-content" class="letter-paper p-10 rounded-[2.5rem] relative overflow-hidden text-left font-cute text-2xl text-slate-700 leading-relaxed shadow-2xl">
+                <!-- Content injected dynamically -->
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button onclick="window.showHallOfFame()" class="bg-indigo-500 text-white px-10 py-4 rounded-2xl font-game hover:bg-indigo-600 shadow-lg text-lg transition hover:scale-105">명예의 전당 결과 확인 🏆</button>
+            </div>
+        </section>
+
+        <!-- Scene 11: Hall of Fame -->
+        <section id="scene-hall-of-fame" class="hidden-section max-w-3xl mx-auto slide-in text-center mt-10 w-full">
+            <div class="bg-slate-900 p-10 rounded-[3rem] shadow-2xl border-4 border-yellow-400 relative overflow-hidden text-white">
+                <i class="fas fa-trophy text-7xl text-yellow-400 mb-4 bounce-slow block drop-shadow-[0_0_15px_rgba(250,204,21,0.8)]"></i>
+                <h2 class="text-4xl font-black text-white font-game mb-2 tracking-widest">명예의 전당</h2>
+                <p class="text-yellow-200 font-cute text-xl mb-8">2027학년도 대입 최종 결과</p>
                 
-                <div class="mt-12 text-center">
-                    <button onclick="location.reload()" class="bg-indigo-500 text-white px-10 py-4 rounded-2xl font-game hover:bg-indigo-600 shadow-lg text-lg transition hover:scale-105">처음으로 돌아가기 🏃</button>
+                <div class="bg-slate-800 p-6 rounded-2xl border-2 border-slate-600 mb-8 flex flex-col items-center">
+                    <div id="hof-icon" class="text-6xl mb-2">👑</div>
+                    <div id="hof-title" class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-600 font-game mb-4">입시의 신</div>
+                    
+                    <div class="w-full grid grid-cols-2 gap-4 text-left bg-slate-700 p-4 rounded-xl font-game text-lg">
+                        <div><span class="text-slate-400 block text-xs">플레이어</span> <span id="hof-name" class="text-white"></span></div>
+                        <div><span class="text-slate-400 block text-xs">최종 진학</span> <span id="hof-uni" class="text-white font-bold"></span></div>
+                        <div><span class="text-slate-400 block text-xs">최종 내신</span> <span id="hof-gpa" class="text-green-400"></span></div>
+                        <div><span class="text-slate-400 block text-xs">최종 수능</span> <span id="hof-sat" class="text-purple-400"></span>%</div>
+                    </div>
                 </div>
+                
+                <p id="hof-comment" class="text-lg text-slate-300 font-cute mb-8 break-keep leading-relaxed"></p>
+                
+                <button onclick="location.reload()" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-slate-900 px-12 py-4 rounded-2xl hover:from-yellow-400 hover:to-orange-400 shadow-[0_0_20px_rgba(234,179,8,0.4)] font-black transition transform hover:scale-105 text-xl font-game">새로운 도전 시작하기 🚀</button>
             </div>
         </section>
 
@@ -416,7 +456,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-100 text-slate-400 text-center p-6 text-xs font-bold font-game">
-        <p>Copyright ⓒ 2026 <span class="text-cyan-400">Yoo Won Seok</span>. All rights reserved.</p>
+        <p>Copyright ⓒ 2026 <span class="text-cyan-400">NADASHIP</span>. All rights reserved.</p>
     </footer>
     
     <!-- Susi Type Modal -->
@@ -450,12 +490,113 @@
                     </div>
                     <i class="fas fa-pen-nib text-slate-300 group-hover:text-purple-500 text-2xl"></i>
                 </button>
+            <div class="mt-4 pt-4 border-t border-slate-700 flex justify-center items-center relative">
+                <span class="text-slate-400 font-game text-sm"><i class="fas fa-network-wired mr-1"></i>전 세계 플레이어들과 실시간으로 기록이 동기화됩니다.</span>
+                <span onclick="window.openAdminModal()" class="cursor-pointer text-slate-700 hover:text-slate-500 absolute right-0"><i class="fas fa-user-shield"></i></span>
             </div>
-            <button onclick="closeModal()" class="mt-6 w-full py-3 text-slate-400 hover:text-slate-600 font-bold transition font-game text-lg">닫기</button>
         </div>
     </div>
 
+    <!-- 관리자 로그인 및 초기화 모달 -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 hidden z-[80] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-slate-900 rounded-[2rem] shadow-2xl max-w-sm w-full p-8 border-4 border-red-500 relative flex flex-col">
+            <button onclick="window.closeAdminModal()" class="absolute top-4 right-5 text-slate-400 hover:text-white text-3xl transition"><i class="fas fa-times"></i></button>
+            <h2 class="text-3xl font-black text-red-500 font-game mb-6 text-center">
+                <i class="fas fa-lock mr-2"></i>관리자 권한
+            </h2>
+            <p class="text-slate-400 text-sm font-game mb-4 text-center">명예의 전당 온라인 데이터를<br>모두 초기화합니다.</p>
+            <input type="text" id="admin-id" placeholder="ID" class="w-full bg-slate-800 text-white border-2 border-slate-600 p-3 rounded-xl mb-3 font-game outline-none focus:border-red-500">
+            <input type="password" id="admin-pw" placeholder="Password" class="w-full bg-slate-800 text-white border-2 border-slate-600 p-3 rounded-xl mb-6 font-game outline-none focus:border-red-500">
+            <button onclick="window.executeAdminClear()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all font-game text-xl flex items-center justify-center gap-2">
+                <i class="fas fa-trash-alt"></i> 전체 초기화 실행
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (ES Module Dynamic Import) -->
     <script>
+        let firebaseConfig = null;
+        let internalAppId = 'default-app-id';
+        
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            firebaseConfig = JSON.parse(__firebase_config);
+            if (typeof __app_id !== 'undefined') internalAppId = __app_id;
+        } else {
+            // 주신 Firebase 프로젝트 설정값으로 대체 완료
+            firebaseConfig = {
+                apiKey: "AIzaSyDIDY-GnCfRlnIfNBr5OH1DibVB3jLUtT8",
+                authDomain: "ipsi-s-god.firebaseapp.com",
+                projectId: "ipsi-s-god",
+                storageBucket: "ipsi-s-god.firebasestorage.app",
+                messagingSenderId: "1096252834959",
+                appId: "1:1096252834959:web:ce304e6dfd170ad74b5cfa",
+                measurementId: "G-LKLF747XCT"
+            };
+        }
+
+        window.globalHofData = [];
+        window.currentUser = null;
+        window.db = null;
+        window.addDoc = null;
+        window.collection = null;
+        window.deleteDoc = null; // 추가
+        window.doc = null;       // 추가
+        window.appId = internalAppId;
+
+        async function initFirebase() {
+            try {
+                if (!firebaseConfig || !firebaseConfig.projectId) {
+                    console.log("Firebase 설정이 없습니다. 로컬 랭킹 모드로 작동합니다.");
+                    return;
+                }
+
+                const appMod = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
+                const authMod = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
+                const fsMod = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+                
+                window.collection = fsMod.collection;
+                window.addDoc = fsMod.addDoc;
+                window.deleteDoc = fsMod.deleteDoc; // 추가
+                window.doc = fsMod.doc;             // 추가
+
+                const app = appMod.initializeApp(firebaseConfig);
+                const auth = authMod.getAuth(app);
+                window.db = fsMod.getFirestore(app);
+
+                const doAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await authMod.signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await authMod.signInAnonymously(auth);
+                    }
+                };
+                await doAuth();
+
+                authMod.onAuthStateChanged(auth, (user) => {
+                    window.currentUser = user;
+                    if (user && window.db) {
+                        const hofRef = fsMod.collection(window.db, 'artifacts', window.appId, 'public', 'data', 'hall_of_fame');
+                        fsMod.onSnapshot(hofRef, (snapshot) => {
+                            const data = [];
+                            snapshot.forEach(doc => data.push({ dbId: doc.id, ...doc.data() }));
+                            window.globalHofData = data.sort((a, b) => b.score - a.score || b.timestamp - a.timestamp);
+                            
+                            const modal = document.getElementById('hof-modal');
+                            if(modal && !modal.classList.contains('hidden')) {
+                                window.renderHallOfFameList();
+                            }
+                        }, (error) => {
+                            console.error("Firestore Error:", error);
+                        });
+                    }
+                });
+            } catch(e) {
+                console.error("Firebase 초기화 에러:", e);
+            }
+        }
+        
+        initFirebase();
+
         // --- Global State ---
         let activeRetryMode = null; 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -490,7 +631,7 @@
             osc.stop(audioCtx.currentTime + 0.3);
         }
 
-        // --- University Data (Massively Expanded for v2.8) ---
+        // --- University Data (Massively Expanded) ---
         const universities = [
              // 1. Medical (Ui-Dae) - Top Tier
             { id: 101, name: "서울대 의예과", tier: "medical", cut_h: 1.05, cut_n: 1.05, jeongsi_cut: 99.7, chojeo: 99, gender:'all', logo: "fas fa-user-md", color: "text-slate-900" },
@@ -581,7 +722,7 @@
             { id: 505, name: "계명대학교", tier: "local", cut_h: 4.9, cut_n: 5.1, jeongsi_cut: 62.0, chojeo: 0, gender:'all', logo: "fas fa-music", color: "text-blue-400" }
         ];
 
-        // --- UPGRADED Quiz Data (40+ Questions) ---
+        // --- UPGRADED Quiz Data ---
         const quizPool = [
             // Korean History
             { subject: "한국사(근현대)", q: "박정희 정부 시기 3선 개헌을 반대하는 목소리가 커지던 중 발생한 사건은?", options: ["부마 민주 항쟁", "6.3 시위", "전태일 분신 사건", "3.1 민주 구국 선언"], a: 2 },
@@ -590,7 +731,7 @@
             { subject: "한국사(조선)", q: "조선 후기 대동법의 실시 결과로 가장 적절한 것은?", options: ["공인이 등장하였다.", "지주 전호제가 강화되었다.", "결작이 부과되었다.", "직전법이 폐지되었다."], a: 0 },
             { subject: "한국사(개항기)", q: "1894년 동학 농민 운동 당시 농민군이 제시한 폐정 개혁안에 포함되지 않은 것은?", options: ["노비 문서 소각", "토지 평균 분작", "청에 대한 조공 폐지", "탐관오리 처벌"], a: 2 },
 
-            // Math (High Difficulty)
+            // Math
             { subject: "수학(기하)", q: "타원의 장축 길이가 10이고 두 초점 사이의 거리가 8일 때, 타원 위의 점 P에 대해 선분 FP + F'P의 값은?", options: ["8", "10", "12", "14"], a: 1 }, 
             { subject: "수학(확통)", q: "어떤 시행에서 사건 A가 일어날 확률 P(A)=0.4, 조건부 확률 P(B|A)=0.5일 때 P(A∩B)의 값은?", options: ["0.2", "0.4", "0.5", "0.9"], a: 0 },
             { subject: "수학(킬러)", q: "로그방정식 log₂(x-1) + log₂(x+2) = 2 의 해 x는?", options: ["2", "3", "4", "5"], a: 0 },
@@ -598,14 +739,14 @@
             { subject: "미적분(극한)", q: "lim(n→∞) (2n² + 3n) / (n² - 1) 의 값은?", options: ["1", "2", "3", "∞"], a: 1 },
             { subject: "수학I(수열)", q: "첫째항이 1이고 공비가 2인 등비수열의 제10항은?", options: ["256", "512", "1024", "2048"], a: 1 },
 
-            // English (Logical Reading)
+            // English
             { subject: "영어(독해)", q: "문장의 논리적 순서 배열 문제: (A) James applied... (B) Committee was moved... (C) Daniel advocated... (D) Not long after...", options: ["A-C-D-B", "A-D-C-B", "A-B-C-D", "A-C-B-D"], a: 1 },
             { subject: "영어(어휘)", q: "'Advocated for his brother'에서 advocated의 문맥적 의미는?", options: ["비판하다", "지지하다", "무시하다", "대신하다"], a: 1 },
             { subject: "영어(빈칸)", q: "Scientific knowledge is ______; it is constantly revised based on new evidence.", options: ["absolute", "tentative", "subjective", "dogmatic"], a: 1 },
             { subject: "영어(문법)", q: "밑줄 친 부분 중 어법상 틀린 것은? 'She was looking forward to *go* to the party.'", options: ["was", "looking", "forward", "go"], a: 3 },
-            { subject: "영어(함축)", q: "'Read between the lines'의 의미는?", options: ["큰 소리로 읽다", "숨겨진 의미를 파악하다", "줄을 서서 기다리다", "책을 많이 읽다"], a: 1 },
+            { subject: "영어(함축)", q: "'Read between the lines'의 의미는?", options: ["큰 소리로 읽다", "숨겨진 의미 파악하다", "줄을 서서 기다리다", "책을 많이 읽다"], a: 1 },
 
-            // Science (Integrated + Inquiry)
+            // Science 
             { subject: "통합과학", q: "엘니뇨 시기 동태평양 적도 부근 해역에서 나타나는 특징은?", options: ["용승 강화", "표층 수온 하강", "강수량 증가", "무역풍 강화"], a: 2 },
             { subject: "화학I", q: "중화 반응에서 HCl과 NaOH가 완전히 반응했을 때 생성되는 물질은?", options: ["물과 염", "산소와 수소", "앙금과 기체", "이온 결합 화합물만"], a: 0 },
             { subject: "물리학I", q: "등가속도 직선 운동을 하는 물체의 속도-시간 그래프에서 기울기가 의미하는 것은?", options: ["변위", "이동 거리", "가속도", "평균 속도"], a: 2 },
@@ -613,7 +754,7 @@
             { subject: "지구과학I", q: "태풍의 눈에 대한 설명으로 옳은 것은?", options: ["상승 기류가 강하다.", "기압이 가장 높다.", "약한 하강 기류가 나타난다.", "풍속이 가장 강하다."], a: 2 },
             { subject: "화학II(킬러)", q: "이상 기체 상태 방정식 PV=nRT에서 R은 무엇인가?", options: ["보일 상수", "기체 상수", "아보가드로 수", "플랑크 상수"], a: 1 },
 
-            // Social Studies (Integrated + Inquiry)
+            // Social Studies
             { subject: "통합사회", q: "비교 우위론에 따라 각국이 무역을 할 때 얻는 이익의 근거는?", options: ["기회비용의 차이", "절대 생산비의 우위", "노동 인구수", "천연 자원량"], a: 0 },
             { subject: "생활과윤리", q: "롤스의 정의론에서 '무지의 베일'을 쓴 당사자들이 합의할 분배 원칙은?", options: ["공리주의 원칙", "최소 수혜자 최대 이익", "능력에 따른 분배", "절대적 평등"], a: 1 },
             { subject: "사회문화", q: "사회 문제를 사회 구조적 모순에서 찾는 관점은?", options: ["기능론", "갈등론", "상징적 상호작용론", "교환 이론"], a: 1 },
@@ -635,7 +776,7 @@
                 { q: "리더십을 발휘해 공동체의 문제를 해결한 경험이 있는가?", options: ["없습니다. 전 팔로워입니다.", "축제 준비 중 의견 충돌을 조율하여 성공적으로 마친 경험", "조장이 되어 조원들에게 일을 다 시킨 경험", "나서기 싫어서 조용히 있었습니다."], a: 1 },
                 { q: "봉사활동 시간이 많은데, 무엇을 느꼈는가?", options: ["시간 채우느라 힘들었습니다.", "타인을 돕는 기쁨과 공동체 의식", "스펙 쌓기 용이었습니다.", "기억이 안 납니다."], a: 1 },
                 { q: "자신만의 스트레스 해소법이나 멘탈 관리 노하우는?", options: ["잠을 잡니다.", "친구들과 수다를 떱니다.", "긍정적인 마인드셋과 취미 생활", "화냅니다."], a: 2 },
-                { q: "존경하는 인물이나 삶의 롤모델이 있는가?", options: ["유명 연예인", "부모님", "자신의 분야에서 혁신을 이룬 인물", "돈 많은 사람"], a: 2 }
+                { q: "존경하는 인물이나 삶의 롤모델이 있는가?", options: ["유명 연예인", "부모님", "자신의 분야에서 혁신을 이룬 인물", "돈 많은 기부자"], a: 2 }
             ]
         };
 
@@ -666,47 +807,14 @@
             ]
         };
 
-        // --- Essay Topics (Multi-Question) ---
         const essayTopics = {
-            '자연': [ // Includes Medical
-                { 
-                    title: "문제 1. 엔트로피와 에너지", 
-                    text: "열역학 제2법칙에 따르면 고립계의 엔트로피는 항상 증가한다. 이를 '에너지의 질' 관점에서 설명하고, 우주의 열적 죽음(Heat Death)이 의미하는 바를 서술하시오.", 
-                    options: ["에너지 총량 감소 / 우주 수축", "에너지 질 저하 / 평형 상태 도달(모든 활동 정지)", "에너지 질 향상 / 새로운 별 탄생", "엔트로피 감소 / 질서 회복"], 
-                    a: 1 
-                },
-                { 
-                    title: "문제 2. 불확정성과 결정론", 
-                    text: "하이젠베르크의 불확정성 원리는 미시 세계에서 위치와 운동량을 동시에 정확히 측정할 수 없음을 시사한다. 이것이 고전 역학적 결정론에 미치는 철학적 함의는?", 
-                    options: ["라플라스의 악마는 존재한다", "모든 미래는 예측 가능하다", "인과율의 붕괴 및 확률적 세계관 대두", "관측 장비의 한계일 뿐이다"], 
-                    a: 2 
-                },
-                {
-                    title: "문제 3. 베이즈 정리 (심화)",
-                    text: "어떤 희귀병의 유병률이 0.1%이다. 검사 정확도가 99%일 때, 양성 판정을 받은 사람이 실제로 병에 걸렸을 확률은 직관보다 낮다. 그 이유는?",
-                    options: ["검사가 잘못되어서", "실제 환자 수보다 위양성(False Positive)의 수가 상대적으로 많기 때문", "유병률이 너무 높아서", "계산 오류"],
-                    a: 1
-                }
+            '자연': [
+                { title: "문제 1. 엔트로피와 에너지", text: "열역학 제2법칙에 따르면 고립계의 엔트로피는 항상 증가한다. 이를 '에너지의 질' 관점에서 설명하고, 우주의 열적 죽음(Heat Death)이 의미하는 바를 서술하시오.", options: ["에너지 총량 감소 / 우주 수축", "에너지 질 저하 / 평형 상태 도달(모든 활동 정지)", "에너지 질 향상 / 새로운 별 탄생", "엔트로피 감소 / 질서 회복"], a: 1 },
+                { title: "문제 2. 불확정성과 결정론", text: "하이젠베르크의 불확정성 원리는 미시 세계에서 위치와 운동량을 동시에 정확히 측정할 수 없음을 시사한다. 이것이 고전 역학적 결정론에 미치는 철학적 함의는?", options: ["라플라스의 악마는 존재한다", "모든 미래는 예측 가능하다", "인과율의 붕괴 및 확률적 세계관 대두", "관측 장비의 한계일 뿐이다"], a: 2 }
             ],
             '인문': [
-                { 
-                    title: "문제 1. 정의란 무엇인가", 
-                    text: "존 롤스의 '무지의 베일' 상태에서 합의될 것으로 예상되는 '차등의 원칙'은 무엇을 정당화하는가?", 
-                    options: ["모든 결과의 절대적 평등", "능력에 따른 무제한적 보상", "최소 수혜자에게 최대 이익이 돌아가는 불평등", "자유 시장의 완전한 방임"], 
-                    a: 2 
-                },
-                { 
-                    title: "문제 2. 감시와 처벌", 
-                    text: "미셸 푸코가 언급한 '판옵티콘'의 원리가 현대 정보 사회에서 '디지털 판옵티콘'으로 확장될 때 발생하는 주된 문제는?", 
-                    options: ["범죄율 감소", "정보의 효율적 관리", "규율 내면화로 인한 주체성 상실 및 사생활 침해", "통신 속도 저하"], 
-                    a: 2 
-                },
-                {
-                    title: "문제 3. 악의 평범성",
-                    text: "한나 아렌트가 아이히만 재판을 통해 주창한 '악의 평범성'의 핵심 요지는?",
-                    options: ["악마는 태어날 때부터 정해져 있다", "생각 없음(사유의 불능)이 거대한 악을 낳는다", "명령 복종은 죄가 아니다", "유대인 학살은 불가피했다"],
-                    a: 1
-                }
+                { title: "문제 1. 정의란 무엇인가", text: "존 롤스의 '무지의 베일' 상태에서 합의될 것으로 예상되는 '차등의 원칙'은 무엇을 정당화하는가?", options: ["모든 결과의 절대적 평등", "능력에 따른 무제한적 보상", "최소 수혜자에게 최대 이익이 돌아가는 불평등", "자유 시장의 완전한 방임"], a: 2 },
+                { title: "문제 2. 감시와 처벌", text: "미셸 푸코가 언급한 '판옵티콘'의 원리가 현대 정보 사회에서 '디지털 판옵티콘'으로 확장될 때 발생하는 주된 문제는?", options: ["범죄율 감소", "정보의 효율적 관리", "규율 내면화로 인한 주체성 상실 및 사생활 침해", "통신 속도 저하"], a: 2 }
             ]
         };
 
@@ -720,7 +828,7 @@
         let jeongsiCart = [];
         let finalResults = []; 
         let passedUniversities = []; 
-        let selectedUniForModal = null;
+        let selectedFinalUniversity = null; 
         let jonghapScore = 0;
         let nonsulScore = 0;
         let practicalScore = 0; 
@@ -729,10 +837,11 @@
         let currentEssayQ = 0;
         let currentPenaltyMode = null;
         let usedQuestions = [];
-        let criticalFailure = false; // 면접 망함 플래그
+        let criticalFailure = false; 
+        let isRecordSaved = false;   
 
         // --- Core Functions ---
-        function toggleMajorInput() {
+        window.toggleMajorInput = function() {
             const track = document.getElementById('input-track').value;
             const majorInput = document.getElementById('input-major');
             const body = document.getElementById('main-body');
@@ -751,7 +860,7 @@
             }
         }
 
-        function updateStatus() {
+        window.updateStatus = function() {
             const els = {
                 name: document.getElementById('display-name'),
                 major: document.getElementById('display-major'),
@@ -777,7 +886,7 @@
             }
         }
 
-        function switchScene(id) {
+        window.switchScene = function(id) {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
             const target = document.getElementById(id);
             if(target) {
@@ -796,9 +905,11 @@
             jeongsiCart = [];
             finalResults = []; 
             passedUniversities = [];
+            selectedFinalUniversity = null;
             jonghapScore = 0; nonsulScore = 0; practicalScore = 0;
             usedQuestions = [];
             criticalFailure = false;
+            isRecordSaved = false;
             
             currentPenaltyMode = mode;
             maxRounds = (mode === 'gunsu') ? 10 : 5;
@@ -826,7 +937,7 @@
                  maxRounds = 5;
             }
 
-            switchScene('scene-intro');
+            window.switchScene('scene-intro');
             document.querySelectorAll('#profile-form input').forEach(i => i.value = '');
         }
 
@@ -852,7 +963,7 @@
 
                 document.getElementById('status-bar').classList.remove('hidden');
                 document.getElementById('status-bar').classList.add('flex');
-                updateStatus();
+                window.updateStatus();
                 
                 // Shuffle Quiz
                 let shuffledPool = [...quizPool];
@@ -865,14 +976,14 @@
                 const tr = document.getElementById('total-rounds');
                 if(tr) tr.innerText = maxRounds;
 
-                switchScene('scene-quiz');
-                loadQuiz();
+                window.switchScene('scene-quiz');
+                window.loadQuiz();
             });
         }
 
         // Quiz Logic
-        function loadQuiz() {
-            if(currentRound >= maxRounds) { setTimeout(startSusi, 500); return; }
+        window.loadQuiz = function() {
+            if(currentRound >= maxRounds) { setTimeout(window.startSusi, 500); return; }
             
             const crEl = document.getElementById('current-round');
             if(crEl) crEl.innerText = currentRound+1;
@@ -891,7 +1002,7 @@
                  if(title) { title.innerHTML = "🔥 킬러 문항 (승급 심사)!"; title.classList.add('text-red-500'); }
             } else {
                  if(container) container.classList.remove('killer-mode');
-                 if(title) { title.innerHTML = "고3 실전 모의고사"; title.classList.remove('text-red-500'); }
+                 if(title) { title.innerHTML = "수능 실전 모의고사"; title.classList.remove('text-red-500'); }
             }
 
             const subEl = document.getElementById('quiz-subject');
@@ -906,13 +1017,13 @@
                     const btn = document.createElement('button');
                     btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-500 hover:bg-indigo-50 font-bold text-slate-600 transition active:scale-95";
                     btn.innerHTML = `<span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded mr-2 text-xs">${i+1}</span> ${o}`;
-                    btn.onclick = () => checkAnswer(i, q.a);
+                    btn.onclick = () => window.checkAnswer(i, q.a);
                     opts.appendChild(btn);
                 });
             }
         }
         
-        function checkAnswer(sel, ans) {
+        window.checkAnswer = function(sel, ans) {
             const fb = document.getElementById('quiz-feedback');
             const icon = document.getElementById('feedback-icon');
             const text = document.getElementById('feedback-text');
@@ -943,34 +1054,33 @@
                 if(detail) detail.innerHTML = `<span class="score-change score-down">내신 +0.1 ▲</span> <span class="score-change score-down">수능 -3 ▼</span>`;
                 playFailSound();
             }
-            updateStatus();
+            window.updateStatus();
         }
         const nextQuiz = document.getElementById('next-quiz-btn');
-        if(nextQuiz) nextQuiz.onclick = () => { currentRound++; loadQuiz(); };
+        if(nextQuiz) nextQuiz.onclick = () => { currentRound++; window.loadQuiz(); };
 
         // Susi Logic
-        function startSusi() {
-            switchScene('scene-susi');
-            updateStatus(); 
-            // Auto-select filter based on track
+        window.startSusi = function() {
+            window.switchScene('scene-susi');
+            window.updateStatus(); 
             const defaultFilter = player.track === '의학' ? 'medical' : 'all';
             
             document.querySelectorAll('.filter-btn').forEach(b => {
                 b.classList.remove('active', 'bg-slate-800', 'text-white');
                 if(b.dataset.filter === defaultFilter) b.classList.add('active', 'bg-slate-800', 'text-white');
             });
-            renderSusiList(defaultFilter);
+            window.renderSusiList(defaultFilter);
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-slate-800','text-white'));
                     e.target.classList.add('active', 'bg-slate-800','text-white');
-                    renderSusiList(e.target.dataset.filter);
+                    window.renderSusiList(e.target.dataset.filter);
                 };
             });
         }
         
-        function renderSusiList(filter) {
+        window.renderSusiList = function(filter) {
             const list = document.getElementById('susi-uni-list');
             if(!list) return;
             list.innerHTML = '';
@@ -978,9 +1088,7 @@
             universities.forEach(u => {
                 if(player.gender === 'M' && u.gender === 'F') return;
                 
-                // Filter Logic
                 if (filter === 'all') {
-                    // Show everything except Medical (unless player track is medical)
                      if (u.tier === 'medical' && player.track !== '의학') return;
                 } else if (filter === 'medical') {
                      if (u.tier !== 'medical') return;
@@ -1014,13 +1122,12 @@
                     </div>
                     <button class="add-btn w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fas fa-plus"></i></button>
                 `;
-                d.querySelector('.add-btn').onclick = () => openTypeModal(u);
+                d.querySelector('.add-btn').onclick = () => window.openTypeModal(u);
                 list.appendChild(d);
             });
         }
 
-        // Modal & Cart
-        function openTypeModal(u) {
+        window.openTypeModal = function(u) {
             if(susiCart.length >= 6) { alert("수시 원서는 최대 6장입니다."); return; }
             selectedUniForModal = u;
             document.getElementById('modal-uni-name').innerText = u.name;
@@ -1028,7 +1135,7 @@
             document.getElementById('modal-uni-chojeo').innerText = chojeoText;
             document.getElementById('type-modal').classList.remove('hidden');
         }
-        function closeModal() { document.getElementById('type-modal').classList.add('hidden'); selectedUniForModal=null; }
+        window.closeModal = function() { document.getElementById('type-modal').classList.add('hidden'); selectedUniForModal=null; }
         
         document.querySelectorAll('.type-select-btn').forEach(b => {
             b.onclick = () => { 
@@ -1038,13 +1145,13 @@
                         alert("이미 해당 대학의 동일 전형을 선택했습니다."); return;
                     }
                     susiCart.push({...selectedUniForModal, type: type}); 
-                    updateSusiCart(); 
-                    closeModal(); 
+                    window.updateSusiCart(); 
+                    window.closeModal(); 
                 } 
             };
         });
 
-        function updateSusiCart() {
+        window.updateSusiCart = function() {
             const list = document.getElementById('susi-cart');
             const btn = document.getElementById('btn-susi-submit');
             
@@ -1053,11 +1160,11 @@
                 susiCart.forEach((u, i) => {
                     const li = document.createElement('li');
                     li.className = "flex justify-between items-center p-3 bg-white border border-slate-100 rounded-xl text-sm pop-in shadow-sm";
-                    li.innerHTML = `<div><span class="font-bold text-xs bg-gray-100 px-1 rounded mr-1">${u.type}</span> ${u.name}</div><button onclick="removeSusiItem(${i})"><i class="fas fa-times text-red-300"></i></button>`;
+                    li.innerHTML = `<div><span class="font-bold text-xs bg-gray-100 px-1 rounded mr-1">${u.type}</span> ${u.name}</div><button onclick="window.removeSusiItem(${i})"><i class="fas fa-times text-red-300"></i></button>`;
                     list.appendChild(li);
                 });
             }
-            updateStatus();
+            window.updateStatus();
 
             if(btn) {
                 if(susiCart.length > 0) {
@@ -1071,55 +1178,51 @@
                 }
             }
         }
-        window.removeSusiItem = function(index) { susiCart.splice(index, 1); updateSusiCart(); }
+        window.removeSusiItem = function(index) { susiCart.splice(index, 1); window.updateSusiCart(); }
 
         const susiSubmit = document.getElementById('btn-susi-submit');
         if(susiSubmit) {
             susiSubmit.onclick = () => {
                 const needsExam = susiCart.some(u => u.type === '종합' || u.type === '논술') || player.track === '예체능';
-                if(needsExam) switchScene('scene-exam-intro');
-                else processSusiResults();
+                if(needsExam) window.switchScene('scene-exam-intro');
+                else window.processSusiResults();
             };
         }
 
         window.startActualExams = function() {
-            if(player.track === '예체능') setupPractical(); 
-            else if(susiCart.some(u=>u.type==='종합')) setupInterviewStage(0); 
-            else if(susiCart.some(u=>u.type==='논술')) setupEssay();
-            else processSusiResults();
+            if(player.track === '예체능') window.setupPractical(); 
+            else if(susiCart.some(u=>u.type==='종합')) window.setupInterviewStage(0); 
+            else if(susiCart.some(u=>u.type==='논술')) window.setupEssay();
+            else window.processSusiResults();
         }
 
         // --- UPGRADED Interview Logic (Random + 4 Stages) ---
-        function setupInterviewStage(stage) {
+        window.setupInterviewStage = function(stage) {
             interviewStage = stage;
-            switchScene('scene-interview');
+            window.switchScene('scene-interview');
             const container = document.getElementById('interview-content');
             
-            // 4 Dots
             const steps = [0,1,2,3].map(n => `<div class="w-3 h-3 rounded-full ${n<=stage ? 'bg-green-500':'bg-slate-300'}"></div>`).join('');
             document.getElementById('interview-steps').innerHTML = steps;
 
             let q;
             let typeLabel = "";
             
-            if(stage === 0) { // Random Common Question 1 (Motivation/Intro)
+            if(stage === 0) {
                 typeLabel = "1. 가치관 및 자기소개";
                 const pool = commonQuestions['motivation'];
-                const randIndex = Math.floor(Math.random() * pool.length);
-                q = pool[randIndex];
-            } else if (stage === 1) { // Random Common Question 2 (School Life)
+                q = pool[Math.floor(Math.random() * pool.length)];
+            } else if (stage === 1) { 
                 typeLabel = "2. 학교 생활 및 기록부";
                 const pool = commonQuestions['school_life'];
-                const randIndex = Math.floor(Math.random() * pool.length);
-                q = pool[randIndex];
-            } else { // Major Specific (Random)
+                q = pool[Math.floor(Math.random() * pool.length)];
+            } else {
                 typeLabel = stage === 2 ? "3. 전공 적합성(기초)" : "4. 전공 적합성(심화)";
                 const trackKey = (player.track === '의학') ? '의학' : (player.track === '예체능' ? '예체능' : (player.track === '자연' ? '자연' : '인문'));
                 
-                // Random selection without repetition
                 const pool = majorQuestions[trackKey];
                 let availablePool = pool.filter(q => !usedQuestions.includes(q.q));
-                if (availablePool.length === 0) availablePool = pool; // Reset if all used
+                if (availablePool.length === 0) availablePool = pool; 
                 
                 const randIndex = Math.floor(Math.random() * availablePool.length);
                 q = availablePool[randIndex];
@@ -1129,7 +1232,7 @@
             if(container) {
                 container.innerHTML = `
                     <div class="mb-6"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold mb-2 inline-block">${typeLabel}</span><p class="font-bold text-xl text-slate-800 leading-relaxed">"${q.q}"</p></div>
-                    <div class="grid gap-3">${q.options.map((o,i)=>`<button onclick="handleInterviewAnswer(${i}, ${q.a})" class="w-full text-left p-4 bg-white border-2 border-green-100 rounded-xl hover:bg-green-50 transition font-medium">${i+1}. ${o}</button>`).join('')}</div>
+                    <div class="grid gap-3">${q.options.map((o,i)=>`<button onclick="window.handleInterviewAnswer(${i}, ${q.a})" class="w-full text-left p-4 bg-white border-2 border-green-100 rounded-xl hover:bg-green-50 transition font-medium">${i+1}. ${o}</button>`).join('')}</div>
                 `;
             }
         }
@@ -1138,39 +1241,36 @@
             if(selected === answer) {
                 jonghapScore += 0.25; 
             } else {
-                jonghapScore -= 0.5; // Big Penalty for wrong answers
-                criticalFailure = true; // Mark as failed interview
+                jonghapScore -= 0.5; 
+                criticalFailure = true; 
             }
 
             if(interviewStage < 3) {
-                setupInterviewStage(interviewStage + 1);
+                window.setupInterviewStage(interviewStage + 1);
             } else {
-                if(susiCart.some(u=>u.type==='논술')) setupEssay();
-                else processSusiResults();
+                if(susiCart.some(u=>u.type==='논술')) window.setupEssay();
+                else window.processSusiResults();
             }
         }
 
         // --- UPGRADED Essay Logic (Multi-Question) ---
-        function setupEssay() {
-            switchScene('scene-essay');
+        window.setupEssay = function() {
+            window.switchScene('scene-essay');
             currentEssayQ = 0;
-            loadEssayQuestion();
+            window.loadEssayQuestion();
         }
 
-        function loadEssayQuestion() {
+        window.loadEssayQuestion = function() {
             const container = document.getElementById('essay-content');
-            const trackKey = (player.track === '인문') ? '인문' : '자연'; // Med uses Natural
+            const trackKey = (player.track === '인문') ? '인문' : '자연';
             const questions = essayTopics[trackKey];
 
             if (currentEssayQ >= questions.length) {
-                // End of Essay
-                processSusiResults();
+                window.processSusiResults();
                 return;
             }
 
             const q = questions[currentEssayQ];
-
-             // Dots
             const steps = questions.map((_, idx) => `<div class="w-3 h-3 rounded-full ${idx<=currentEssayQ ? 'bg-purple-500':'bg-slate-300'}"></div>`).join('');
             document.getElementById('essay-steps').innerHTML = steps;
 
@@ -1181,26 +1281,26 @@
                         <p class="font-bold text-lg text-slate-800 leading-relaxed">${q.text}</p>
                     </div>
                     <div class="grid gap-3">
-                        ${q.options.map((o,i)=>`<button onclick="handleEssayAnswer(${i}, ${q.a})" class="w-full text-left p-4 bg-white border-2 border-purple-100 rounded-xl hover:bg-purple-50 transition font-medium text-base">${i+1}. ${o}</button>`).join('')}
+                        ${q.options.map((o,i)=>`<button onclick="window.handleEssayAnswer(${i}, ${q.a})" class="w-full text-left p-4 bg-white border-2 border-purple-100 rounded-xl hover:bg-purple-50 transition font-medium text-base">${i+1}. ${o}</button>`).join('')}
                     </div>
                 `;
             }
         }
 
         window.handleEssayAnswer = function(sel, ans) {
-            if(sel === ans) nonsulScore += 0.5; // Accumulate score
+            if(sel === ans) nonsulScore += 0.5; 
             else nonsulScore -= 0.2;
             
             currentEssayQ++;
-            loadEssayQuestion();
+            window.loadEssayQuestion();
         }
 
         // Practical (Reaction)
-        function setupPractical() {
-            switchScene('scene-practical');
-            startReactionTest();
+        window.setupPractical = function() {
+            window.switchScene('scene-practical');
+            window.startReactionTest();
         }
-        function startReactionTest() {
+        window.startReactionTest = function() {
             const box = document.getElementById('reaction-area');
             const btn = document.getElementById('practical-next-btn');
             if(btn) btn.classList.add('hidden');
@@ -1208,7 +1308,7 @@
             if(box) {
                 box.className = 'reaction-box reaction-waiting h-64 rounded-3xl flex items-center justify-center text-white text-3xl font-black font-game shadow-inner';
                 box.innerText = "빨간색일 때 클릭하면 실격!";
-                box.style.backgroundColor = "#ef4444"; // Red
+                box.style.backgroundColor = "#ef4444"; 
             }
             reactionState = 'waiting';
             const delay = 2000 + Math.random() * 3000;
@@ -1216,7 +1316,7 @@
                 reactionState = 'ready';
                 if(box) {
                     box.className = 'reaction-box reaction-ready h-64 rounded-3xl flex items-center justify-center text-white text-3xl font-black font-game shadow-inner';
-                    box.style.backgroundColor = "#22c55e"; // Green
+                    box.style.backgroundColor = "#22c55e"; 
                     box.innerText = "지금 클릭하세요!!!";
                 }
                 reactionStartTime = Date.now();
@@ -1230,7 +1330,7 @@
                 clearTimeout(reactionTimer);
                 if(box) { box.innerText = "너무 빨랐습니다! (실격)"; box.style.backgroundColor = "#94a3b8"; }
                 practicalScore = -1.0;
-                showPracticalNext();
+                window.showPracticalNext();
             } else if (reactionState === 'ready') {
                 const time = Date.now() - reactionStartTime;
                 if(box) { 
@@ -1239,18 +1339,18 @@
                     else if(time < 400) { box.innerText = `${time}ms Good`; practicalScore = 0.5; }
                     else { box.innerText = `${time}ms Bad`; practicalScore = 0; }
                 }
-                showPracticalNext();
+                window.showPracticalNext();
             }
             reactionState = 'finished';
         }
-        function showPracticalNext() {
+        window.showPracticalNext = function() {
             document.getElementById('practical-next-btn').classList.remove('hidden');
-            document.getElementById('practical-next-btn').onclick = () => processSusiResults();
+            document.getElementById('practical-next-btn').onclick = () => window.processSusiResults();
         }
 
         // Susi Processing
-        function processSusiResults() {
-            switchScene('scene-susi-result');
+        window.processSusiResults = function() {
+            window.switchScene('scene-susi-result');
             const list = document.getElementById('susi-result-list');
             if(list) list.innerHTML = '';
             passedUniversities = [];
@@ -1266,19 +1366,16 @@
                     if(player.track === '예체능') baseCut += 1.0; 
 
                     if (u.type === '교과') {
-                        // Susi Cutoff + Chojeo
                         if (player.sat < u.chojeo) passed = false; 
                         else {
                             if (player.gpa <= baseCut + 0.05) passed = true; 
-                            else passed = Math.random() < 0.1; // Luck
+                            else passed = Math.random() < 0.1; 
                         }
                     } else {
-                        // Jonghap/Nonsul
                         let finalScore = baseCut;
                         
-                        // If critical failure in interview, massively penalize
                         if (u.type === '종합' && criticalFailure) {
-                            finalScore -= 2.0; // Guaranteed Fail mostly
+                            finalScore -= 2.0; 
                         } else if(u.type==='종합') {
                             finalScore += (0.5 + jonghapScore); 
                         }
@@ -1313,13 +1410,11 @@
                     if(i === susiCart.length-1) {
                         document.getElementById('susi-outcome-controls').classList.remove('hidden');
                         if(passedUniversities.length > 0) {
-                            // Passed Susi - Show Pass Msg ONLY
                             document.getElementById('susi-pass-msg').classList.remove('hidden');
-                            document.getElementById('susi-fail-msg').classList.add('hidden'); // Ensure fail msg is hidden
+                            document.getElementById('susi-fail-msg').classList.add('hidden'); 
                         } else {
-                            // Failed Susi - Show Fail Msg ONLY
                             document.getElementById('susi-fail-msg').classList.remove('hidden');
-                            document.getElementById('susi-pass-msg').classList.add('hidden'); // Ensure pass msg is hidden
+                            document.getElementById('susi-pass-msg').classList.add('hidden'); 
                         }
                     }
                 }, i*800);
@@ -1327,31 +1422,31 @@
         }
 
         const susiFinalBtn = document.getElementById('go-to-final-choice-susi');
-        if(susiFinalBtn) susiFinalBtn.onclick = () => showFinalSelection(passedUniversities);
+        if(susiFinalBtn) susiFinalBtn.onclick = () => window.showFinalSelection(passedUniversities);
         
         const jeongsiBtn = document.getElementById('go-to-jeongsi');
-        if(jeongsiBtn) jeongsiBtn.onclick = startJeongsi;
+        if(jeongsiBtn) jeongsiBtn.onclick = window.startJeongsi;
 
         // Jeongsi Logic
-        function startJeongsi() {
-            switchScene('scene-jeongsi');
+        window.startJeongsi = function() {
+            window.switchScene('scene-jeongsi');
             const defaultFilter = player.track === '의학' ? 'medical' : 'all';
              document.querySelectorAll('.j-filter-btn').forEach(b => {
                 b.classList.remove('active', 'bg-slate-800', 'text-white');
                 if(b.dataset.filter === defaultFilter) b.classList.add('active', 'bg-slate-800', 'text-white');
             });
-            renderJeongsiList(defaultFilter);
+            window.renderJeongsiList(defaultFilter);
             
             document.querySelectorAll('.j-filter-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     document.querySelectorAll('.j-filter-btn').forEach(b => b.classList.remove('active', 'bg-slate-800','text-white'));
                     e.target.classList.add('active', 'bg-slate-800','text-white');
-                    renderJeongsiList(e.target.dataset.filter);
+                    window.renderJeongsiList(e.target.dataset.filter);
                 };
             });
         }
 
-        function renderJeongsiList(filter) {
+        window.renderJeongsiList = function(filter) {
             const list = document.getElementById('jeongsi-uni-list');
             if(!list) return;
             list.innerHTML = '';
@@ -1387,20 +1482,20 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="addToJeongsiCart(${u.id})" class="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fas fa-plus"></i></button>
+                    <button onclick="window.addToJeongsiCart(${u.id})" class="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fas fa-plus"></i></button>
                 `;
                 list.appendChild(d);
             });
         }
 
-        window.addToJeongsiCart = (id) => {
+        window.addToJeongsiCart = function(id) {
             if(jeongsiCart.length >= 3) { alert("정시는 3장입니다."); return; }
             if(jeongsiCart.find(x=>x.id===id)) { alert("이미 선택했습니다."); return; }
             jeongsiCart.push(universities.find(u=>u.id===id));
-            updateJeongsiCart();
+            window.updateJeongsiCart();
         }
 
-        function updateJeongsiCart() {
+        window.updateJeongsiCart = function() {
             const list = document.getElementById('jeongsi-cart');
             const cnt = document.getElementById('jeongsi-count');
             const btn = document.getElementById('submit-jeongsi');
@@ -1411,11 +1506,11 @@
                 jeongsiCart.forEach((u, i) => {
                     const li = document.createElement('li');
                     li.className = "flex justify-between items-center p-3 bg-white border border-slate-100 rounded-xl text-sm pop-in shadow-sm";
-                    li.innerHTML = `<span>${u.name}</span> <button onclick="removeJeongsiItem(${i})"><i class="fas fa-times text-red-300"></i></button>`;
+                    li.innerHTML = `<span>${u.name}</span> <button onclick="window.removeJeongsiItem(${i})"><i class="fas fa-times text-red-300"></i></button>`;
                     list.appendChild(li);
                 });
             }
-            updateStatus();
+            window.updateStatus();
 
             if(btn) {
                 if(jeongsiCart.length > 0) {
@@ -1431,7 +1526,7 @@
         
         window.removeJeongsiItem = function(index) {
             jeongsiCart.splice(index, 1);
-            updateJeongsiCart();
+            window.updateJeongsiCart();
         }
 
         const jeongsiSubmit = document.getElementById('submit-jeongsi');
@@ -1439,8 +1534,8 @@
             jeongsiSubmit.onclick = () => {
                 jeongsiCart.forEach(u => {
                     const diff = player.sat - u.jeongsi_cut;
-                    let prob = 50 + diff*5; // Sensitivity
-                    if(u.tier === 'medical') prob = 30 + diff*10; // Medical is stricter
+                    let prob = 50 + diff*5; 
+                    if(u.tier === 'medical') prob = 30 + diff*10; 
                     
                     if(prob>95) prob=95; if(prob<1) prob=1;
                     const passed = Math.random()*100 < prob;
@@ -1448,7 +1543,7 @@
                     finalResults.push({name:u.name, status:passed?'합격':'불합격', type: '정시'});
                 });
 
-                switchScene('scene-jeongsi-announce');
+                window.switchScene('scene-jeongsi-announce');
                 const container = document.getElementById('jeongsi-results-container');
                 if(container) container.innerHTML = '';
                 
@@ -1484,10 +1579,10 @@
         }
 
         const jeongsiFinalBtn = document.getElementById('go-to-final-choice-jeongsi');
-        if(jeongsiFinalBtn) jeongsiFinalBtn.onclick = () => showFinalSelection(passedUniversities);
+        if(jeongsiFinalBtn) jeongsiFinalBtn.onclick = () => window.showFinalSelection(passedUniversities);
 
-        function showFinalSelection(passedList) {
-            switchScene('scene-final-select');
+        window.showFinalSelection = function(passedList) {
+            window.switchScene('scene-final-select');
             const container = document.getElementById('final-candidate-list');
             if(container) {
                 container.innerHTML = '';
@@ -1504,14 +1599,15 @@
                         </div>
                         <span class="text-blue-500 font-bold group-hover:underline font-game text-lg">선택하기 ✨</span>
                     `;
-                    btn.onclick = () => showFinalReport(u);
+                    btn.onclick = () => window.showFinalReport(u);
                     container.appendChild(btn);
                 });
             }
         }
 
-        function showFinalReport(university) {
-            switchScene('scene-final');
+        window.showFinalReport = function(university) {
+            selectedFinalUniversity = university;
+            window.switchScene('scene-final');
             document.querySelector('.final-name').innerText = player.name;
             document.querySelector('.final-school-display').innerText = player.school;
             document.querySelectorAll('.final-gpa-display').forEach(e=>e.innerText=player.gpa.toFixed(2));
@@ -1530,12 +1626,269 @@
                     </div>
                 `;
             }
+            
+            // 입시 전략 평가 함수 호출
+            window.evaluateAdmission(university);
+            
             playSuccessSound();
         }
+        
+        window.evaluateAdmission = function(univ) {
+            let score = 0;
+            let grade = '';
+            let comment = '';
+            let diff = 0;
 
-        window.showEncouragementLetter = function() {
-            switchScene('scene-letter');
+            if (univ.method === '수시') {
+                let cut = (player.track === '자연' || player.track === '의학') ? univ.cut_n : univ.cut_h;
+                if (player.track === '예체능') cut += 1.0;
+                // 내신은 낮을수록(숫자가 클수록) 성적이 나쁜 것.
+                // diff가 양수면 내신이 안 좋은데 합격한 것 -> 우주 상향
+                diff = player.gpa - cut; 
+                
+                if (diff >= 0.4) { grade = 'S+'; score = 100; comment = "기적의 우주 상향 적중! 서류와 면접/논술로 부족한 내신을 완벽히 뒤집어엎었습니다."; }
+                else if (diff >= 0.15) { grade = 'S'; score = 95; comment = "상향 지원 성공! 치밀한 전략과 노력이 빛을 발한 최고의 입시입니다."; }
+                else if (diff >= -0.15) { grade = 'A'; score = 85; comment = "적정 지원 합격! 흔들림 없이 자신의 실력만큼 훌륭하게 진학했습니다."; }
+                else if (diff >= -0.4) { grade = 'B'; score = 75; comment = "안정 지원 합격. 발 뻗고 잘 수 있는 편안한 지원이지만 약간 아쉬움은 남네요."; }
+                else { grade = 'C'; score = 60; comment = "하향 지원 합격! 극단적인 안정 지원입니다. 이른바 수시 납치가 의심됩니다..?!"; }
+            } else { // 정시
+                // 수능은 높을수록(숫자가 클수록) 성적이 좋은 것.
+                // diff가 양수면 대학 컷이 내 점수보다 높은데 합격한 것 -> 스나이핑
+                diff = univ.jeongsi_cut - player.sat; 
+                
+                if (diff >= 4) { grade = 'S+'; score = 100; comment = "기적의 스나이핑 성공! 이른바 원서 영역 1등급이 강림했습니다."; }
+                else if (diff >= 1) { grade = 'S'; score = 95; comment = "소신 지원 적중! 훌륭한 원서 조합과 눈치싸움의 승리입니다."; }
+                else if (diff >= -2) { grade = 'A'; score = 85; comment = "적정 지원 합격! 자신의 수능 점수에 딱 맞는 합리적인 진학입니다."; }
+                else if (diff >= -5) { grade = 'B'; score = 75; comment = "안정 지원 합격. 무난하게 대학 문을 통과했습니다."; }
+                else { grade = 'C'; score = 60; comment = "하향 지원 합격. 수능 점수가 너무 아깝습니다! 장학금은 받으셨겠죠?"; }
+            }
+
+            const gradeEl = document.getElementById('eval-grade');
+            gradeEl.innerText = grade;
+            gradeEl.className = "text-6xl font-black drop-shadow-md w-24 text-center " + 
+                (grade.includes('S') ? 'text-red-500' : (grade === 'A' ? 'text-blue-500' : (grade === 'B' ? 'text-green-500' : 'text-slate-500')));
+
+            document.getElementById('eval-score').innerText = `입시 스코어: ${score}점`;
+            document.getElementById('eval-comment').innerText = comment;
+        }
+
+        window.showEncouragementLetter = function(isPass) {
+            window.switchScene('scene-letter');
+            
+            const letterContent = document.getElementById('letter-content');
+            if (isPass || passedUniversities.length > 0) {
+                letterContent.innerHTML = `
+                    <p class="mb-6 font-bold text-3xl text-indigo-600">사랑하는 수험생 여러분께,</p>
+                    <p class="mb-4">긴 시간 묵묵히 달려오느라 정말 고생 많았습니다. 입시라는 큰 산을 넘은 네가 선생님은 참 대견하고 자랑스럽단다.</p>
+                    <p class="mb-4">합격은 종착역이 아니라 새로운 출발선이라는 걸 잊지 마. 대학이라는 곳은 정답이 정해진 공부가 아니라, 네가 진짜 좋아하는 것이 무엇인지 찾아가는 곳이야. 지금까지 보여준 성실함에 유연한 사고까지 더해진다면, 너는 분명 더 멋진 어른으로 성장할 거야.</p>
+                    <p class="mb-8">주변에 혹시 마음 아파하는 친구들이 있다면 따뜻한 배려도 잊지 않는 멋진 선배가 되길 바란다. 정말 수고 많았다!</p>
+                    <p class="text-right font-bold text-pink-500 text-xl">- NADASHIP 드림 -</p>
+                `;
+            } else {
+                letterContent.innerHTML = `
+                    <p class="mb-6 font-bold text-3xl text-indigo-600">사랑하는 수험생 여러분께,</p>
+                    <p class="mb-4">지금은 어떤 말도 들리지 않겠지만, 꼭 해주고 싶은 말이 있어. 이번 결과가 결코 '너라는 사람'의 가치를 증명하는 지표는 아니라는 거야.</p>
+                    <p class="mb-4">인생이라는 긴 마라톤에서 지금은 잠시 돌부리에 걸려 넘어진 것뿐이지, 네가 가진 달리기 실력이 없어진 게 아니거든. 잠시 마음을 추스르고 나면, 너는 분명 더 단단해진 모습으로 일어설 거야.</p>
+                    <p class="mb-8">선생님은 언제나 여기서 네 가능성을 믿고 응원할게. 고생 많았다.</p>
+                    <p class="text-right font-bold text-pink-500 text-xl">- NADASHIP 드림 -</p>
+                `;
+            }
+            window.calculateHallOfFame();
         };
+
+        window.calculateHallOfFame = function() {
+            let title = "뜨거운 도전자";
+            let icon = "🏃";
+            let comment = "끝까지 포기하지 않은 당신의 노력에 박수를 보냅니다!";
+            let bestUni = "진학 포기 (재도전)";
+            let baseScore = 0;
+            
+            if (selectedFinalUniversity) {
+                bestUni = selectedFinalUniversity.name;
+                const tier = selectedFinalUniversity.tier;
+                let isUpgarde = false; 
+                
+                if (tier === 'medical') baseScore = 100;
+                else if (tier === 'sky') baseScore = 95;
+                else if (tier === 'in_seoul_top') baseScore = 90;
+                else if (tier === 'in_seoul_mid') baseScore = 85;
+                else if (tier === 'jigeoguk') baseScore = 85;
+                else if (tier === 'metro') baseScore = 80;
+                else baseScore = 75;
+
+                // 상향 지원 보너스
+                if (selectedFinalUniversity.method === '수시') {
+                    let cut = (player.track === '자연' || player.track === '의학') ? selectedFinalUniversity.cut_n : selectedFinalUniversity.cut_h;
+                    if (player.track === '예체능') cut += 1.0;
+                    if (player.gpa - cut > 0.2) { baseScore += 5; isUpgarde = true; } 
+                } else {
+                    if (selectedFinalUniversity.jeongsi_cut - player.sat > 2) { baseScore += 5; isUpgarde = true; } 
+                }
+            }
+
+            // 파이어베이스(Firestore)를 통한 온라인 랭킹 저장 로직
+            if (!isRecordSaved && player.name && window.currentUser && window.db && window.addDoc) {
+                const record = {
+                    name: player.name,
+                    uni: bestUni,
+                    gpa: player.gpa.toFixed(2),
+                    sat: player.sat,
+                    score: baseScore,
+                    date: new Date().toLocaleDateString(),
+                    timestamp: Date.now()
+                };
+                
+                // Firestore에 데이터 전송
+                const hofRef = window.collection(window.db, 'artifacts', window.appId, 'public', 'data', 'hall_of_fame');
+                window.addDoc(hofRef, record).catch(e => console.error("기록 저장 실패", e));
+                isRecordSaved = true;
+
+                // 즉각적인 피드백을 위해 로컬 변수(globalHofData)에 임시 추가 및 순위 계산
+                let tempHofData = [...(window.globalHofData || [])];
+                tempHofData.push(record);
+                tempHofData.sort((a, b) => b.score - a.score || b.timestamp - a.timestamp);
+                
+                let currentRank = tempHofData.findIndex(r => r.timestamp === record.timestamp) + 1;
+                
+                if (currentRank === 1) {
+                    title = "입시의 신"; icon = "👑";
+                    comment = "전체 누적 랭킹 1위! 수많은 경쟁자를 뚫고 입시판을 완벽히 평정했습니다!";
+                } else if (currentRank === 2) {
+                    title = "입시의 고수"; icon = "🌟";
+                    comment = "전체 랭킹 2위 달성! 당신의 철저한 입시 전략은 진정한 고수의 반열에 올랐습니다!";
+                } else if (currentRank === 3) {
+                    title = "입시 프로"; icon = "👍";
+                    comment = "영광의 3위권 진입 성공! 당신의 집념과 분석력은 완전히 프로 수준입니다.";
+                } else {
+                    comment = `현재 통합 랭킹 ${currentRank}위! 끝까지 포기하지 않은 뜨거운 도전에 큰 박수를 보냅니다!`;
+                }
+
+                document.getElementById('hof-title').innerText = title;
+                document.getElementById('hof-icon').innerText = icon;
+                document.getElementById('hof-comment').innerText = comment;
+            } else if (!window.db) {
+                // 파이어베이스 미연결 시 로컬 fallback 안내
+                document.getElementById('hof-title').innerText = title;
+                document.getElementById('hof-icon').innerText = icon;
+                document.getElementById('hof-comment').innerText = "(오프라인 모드) " + comment;
+            }
+
+            document.getElementById('hof-name').innerText = player.name;
+            document.getElementById('hof-uni').innerText = bestUni;
+            document.getElementById('hof-gpa').innerText = player.gpa.toFixed(2);
+            document.getElementById('hof-sat').innerText = player.sat;
+        }
+
+        window.openHallOfFameModal = function() {
+            const modal = document.getElementById('hof-modal');
+            const container = document.getElementById('hof-list-container');
+            modal.classList.remove('hidden');
+            
+            window.renderHallOfFameList();
+        }
+
+        window.renderHallOfFameList = function() {
+            const container = document.getElementById('hof-list-container');
+            let hofData = window.globalHofData || [];
+            
+            if(hofData.length === 0) {
+                container.innerHTML = '<div class="text-slate-400 text-center mt-12 font-game text-xl">아직 등록된 입시 기록이 없거나 데이터를 불러오는 중입니다.<br><br>첫 번째 랭커에 도전하세요!</div>';
+                return;
+            }
+            
+            container.innerHTML = hofData.map((data, index) => {
+                let rankColor = 'text-slate-500';
+                let dynamicTitle = "뜨거운 도전자";
+                let dynamicIcon = "🏃";
+
+                if(index === 0) { rankColor = 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]'; dynamicTitle = "입시의 신"; dynamicIcon = "👑"; }
+                else if(index === 1) { rankColor = 'text-gray-300 drop-shadow-[0_0_8px_rgba(209,213,219,0.8)]'; dynamicTitle = "입시의 고수"; dynamicIcon = "🌟"; }
+                else if(index === 2) { rankColor = 'text-amber-600 drop-shadow-[0_0_8px_rgba(217,119,6,0.8)]'; dynamicTitle = "입시 프로"; dynamicIcon = "👍"; }
+
+                return `
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 mb-3 flex items-center gap-3 md:gap-5 transform transition hover:scale-[1.02]">
+                    <div class="text-3xl font-black ${rankColor} w-8 md:w-10 text-center font-game">${index + 1}</div>
+                    <div class="text-4xl filter drop-shadow-md">${dynamicIcon}</div>
+                    <div class="flex-grow">
+                        <div class="text-yellow-300 font-bold text-xs md:text-sm font-game tracking-wider">${dynamicTitle}</div>
+                        <div class="text-white font-bold text-lg md:text-2xl font-game">${data.name} <span class="text-xs text-slate-400 font-sans font-normal ml-1 md:ml-2">${data.date}</span></div>
+                        <div class="text-cyan-300 text-sm md:text-base font-bold font-game mt-1 truncate max-w-[150px] md:max-w-[300px]">${data.uni}</div>
+                    </div>
+                    <div class="text-right text-xs md:text-sm font-game bg-slate-900 p-2 md:p-3 rounded-lg border border-slate-600 min-w-[70px]">
+                        <div class="text-green-400 mb-1">내신 ${data.gpa}</div>
+                        <div class="text-purple-400">수능 ${data.sat}%</div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        window.closeHallOfFameModal = function() {
+            document.getElementById('hof-modal').classList.add('hidden');
+        }
+
+        // --- 관리자 모달 및 초기화 로직 ---
+        window.openAdminModal = function() {
+            document.getElementById('admin-id').value = '';
+            document.getElementById('admin-pw').value = '';
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        window.closeAdminModal = function() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        window.executeAdminClear = async function() {
+            const id = document.getElementById('admin-id').value;
+            const pw = document.getElementById('admin-pw').value;
+            
+            if(id === '1234' && pw === '1234') {
+                const btn = document.querySelector('#admin-modal button');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 초기화 중...';
+                btn.disabled = true;
+
+                if(window.db && window.deleteDoc && window.doc) {
+                    try {
+                        const promises = window.globalHofData.map(record => {
+                            return window.deleteDoc(window.doc(window.db, 'artifacts', window.appId, 'public', 'data', 'hall_of_fame', record.dbId));
+                        });
+                        
+                        await Promise.all(promises);
+                        
+                        window.globalHofData = [];
+                        window.renderHallOfFameList();
+                        
+                        btn.innerHTML = '<i class="fas fa-check"></i> 초기화 완료';
+                        setTimeout(() => {
+                            window.closeAdminModal();
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-trash-alt"></i> 전체 초기화 실행';
+                        }, 1000);
+                        
+                    } catch(e) {
+                        alert("초기화 중 통신 오류가 발생했습니다.");
+                        console.error(e);
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-trash-alt"></i> 전체 초기화 실행';
+                    }
+                } else {
+                    alert("데이터베이스가 연결되어 있지 않습니다.");
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-trash-alt"></i> 전체 초기화 실행';
+                }
+            } else {
+                // 커스텀 알림 처리
+                const idInput = document.getElementById('admin-id');
+                const pwInput = document.getElementById('admin-pw');
+                idInput.classList.add('border-red-500', 'shake');
+                pwInput.classList.add('border-red-500', 'shake');
+                
+                setTimeout(() => {
+                    idInput.classList.remove('shake');
+                    pwInput.classList.remove('shake');
+                }, 500);
+            }
+        }
 
     </script>
 </body>
